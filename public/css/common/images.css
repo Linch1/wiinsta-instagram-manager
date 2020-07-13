@@ -1,0 +1,128 @@
+.icon{
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+.icon.small{
+	width: 40px;
+	height: 40px;
+	background-size: contain;
+}
+.icon.big{
+	width: 80px;
+	height: 80px;
+}
+
+.cover-image{
+	background-position:  center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.contain-image{
+	background-position:  center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+
+
+.spaceship-icon{
+	background-image: url('../../img/spaceship.png');
+}
+.spaceship-img-icon{
+	background-image: url('../../img/spaceship-img.png');
+}
+.asteroid-icon{
+	background-image: url('../../img/asteroid.png');
+}
+.asteroid-img-icon{
+	background-image: url('../../img/asteroid-img.png');
+}
+.switch-icon{
+	background-image: url('../../img/switch.png');
+}
+.dashboard-icon{
+	background-image: url('../../img/dashboard.png');
+}
+.stats-icon{
+	background-image: url('../../img/stats.png');
+}
+.logs-icon{
+	background-image: url('../../img/logs.png');
+}
+.posts-icon{
+	background-image: url('../../img/posts.png');
+}
+.stories-icon{
+	background-image: url('../../img/stories.png');
+}
+.images-icon{
+	background-image: url('../../img/images.png');
+}
+.profiles-icon{
+	background-image: url('../../img/profiles.png');
+}
+.up-icon{
+	background-image: url('../../img/up.png');
+}
+.save-icon{
+	background-image: url('../../img/save.png');
+}
+.delete-profile-icon{
+	background-image: url('../../img/delete-profile.png');
+}
+.delete-session-icon{
+	background-image: url('../../img/delete-session.png');
+}
+.run-all-icon{
+	background-image: url('../../img/run-all.png');
+}
+.run-all-img-icon{
+	background-image: url('../../img/run-all-img.png');
+}
+.clear-text-icon{
+	background-image: url('../../img/clear-text.png');
+}
+.stop-all-icon{
+	background-image: url('../../img/stop-all.png');
+}
+.stop-all-img-icon{
+	background-image: url('../../img/stop-all-img.png');
+}
+.api-login-icon{
+	background-image: url('../../img/api-login.png');
+}
+.warning-icon{
+	background-image: url('../../img/warning.png');
+}
+.delete-images-icon{
+	background-image: url('../../img/delete-images.png');
+}
+.random-icon{
+	background-image: url('../../img/random.png');
+}
+.new-icon{
+	background-image: url('../../img/new.png');
+}
+.delete-scheduled-icon{
+	background-image: url('../../img/delete-scheduled.png');
+}
+.edit-scheduled-icon{
+	background-image: url('../../img/edit-scheduled.png');
+}
+.confirm-icon{
+	background-image: url('../../img/confirm.png');
+}
+.upload-icon{
+	background-image: url('../../img/upload.png');
+}
+.delete-icon{
+	background-image: url('../../img/delete.png');
+}
+.cancel-icon, .delete-post-icon{
+	background-image: url('../../img/cancel.png');
+}
+.help-icon{
+	background-image: url('../../img/help.png');
+}

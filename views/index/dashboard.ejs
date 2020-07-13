@@ -1,0 +1,71 @@
+
+<div class="page dashboard">
+
+  <header class="page-header">
+    <div class="page-icon contain-image dashboard-icon"></div>
+    <h1 class="page-title">Dashboard</h1>
+  </header>
+
+  <div class="top-container">
+    <div class="row">
+      <div class="column medium-2">
+        <a class="help-link" href="#" data-reveal-id="dashboardModal">Click for help <div class="icon contain-image help-icon"></div></a>
+        <div id="dashboardModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+          <div class="getting-started-guide dashboard-guide">
+            <%include ../partials/start_guide_image.ejs%>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/dashboard/dashboard1.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/dashboard/dashboard2.jpg')"></div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            //Slick Slider - Home Slider
+            $('.dashboard-guide').slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              // autoplay: true,
+              // autoplaySpeed: 6000,
+              lazyLoad: 'progressive',
+              pauseOnHover: false,
+              swipe: true,
+              arrows: true,
+              prevArrow: '<a class="slick-prev"><i class="fas fa-chevron-left"></i></a>',
+              nextArrow: '<a class="slick-next"><i class="fas fa-chevron-right"></i></a>',
+              fade: true,
+            });
+          });
+        </script>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class=" medium-6 column">
+
+
+        <div class="selectem profiles"> 
+          <span class="selectem_label">
+            <div class="icon contain-image profiles-icon"></div>
+            <div class="name">Profiles</div>
+          </span>
+          <div class="selectem_dropdown">
+            <input class="selectem-value" name="selectemVal" type="hidden" >
+            <ul class="selectem-items">
+              
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="cardsContainer">
+
+    <!-- POPULATED IN CUSTOM FUNCITONS populate_dashboard(); -->
+
+  </div>
+  
+
+</div>

@@ -1,0 +1,99 @@
+.off-canvas-wrapper{
+	height: 100%;	
+}
+
+.off-canvas-content{
+	box-shadow: none;
+}
+
+.lista{
+	margin-top: 2rem;
+}
+
+*:focus{
+	outline: none;
+}
+
+*{
+	box-sizing: border-box;
+}
+
+.padding{
+	padding: 0 1rem;
+}
+
+.has-tip,
+.has-tip:hover{
+	border: 0;
+	font-weight: inherit;
+}
+
+.page-buttons button,
+.page-buttons input[type="submit"]{
+	border-radius: 5px;
+	background-color: var(--accent);
+	color: white;
+	border: none;
+	padding: 0.5rem;
+	height: 40px;
+	min-width: 100px;
+}
+
+.page-buttons button,
+.page-buttons input[type="submit"]{
+	margin-left: 2rem;
+}
+
+.page-buttons button.button-1,
+.page-buttons input[type="submit"].button-1{
+	border: 2px solid var(--accent);;
+	background-color: white;
+	color: var(--accent);
+}
+
+.switch label{
+	background-color: #F77737;
+}
+
+.profiles option:before{
+	content: "";
+	width: 50px;
+	height: 50px;
+	background-color: red;
+}
+
+.top-container label{
+	font-size: 15px;
+	text-transform: uppercase;
+	margin-bottom: 1rem;
+	color: #CCCCCC;
+}
+.top-container input[type=text]{
+	height: 50px;
+	border: 0;
+	box-shadow: none;
+	border-bottom: 2px solid #e0e0e0;
+}
+
+.menu-container{
+	z-index: 3;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translateX(-150%) translateY(-50%);
+}
+
+.top-container{
+	padding-top: 20px;
+}
+
+.random-settings-container{
+	margin-top: 2rem;
+}
+.random-settings-container h3{
+	margin-bottom: 1rem;
+	padding: 5px;
+	padding-left: 0;
+	text-transform: uppercase;
+	color: #5562eb;
+}

@@ -1,0 +1,129 @@
+.post{
+	-webkit-box-shadow: 0px 4px 13px 2px rgba(90,95,118,0.3);
+	-moz-box-shadow: 0px 4px 13px 2px rgba(90,95,118,0.3);
+	box-shadow: 0px 4px 13px 2px rgba(90,95,118,0.3);
+	margin-bottom: 2rem;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 300px 250px 50px;
+	position: relative;
+	margin-top: 2rem;
+	background-color: white;
+}
+
+.post .post-image-container{}
+
+.post .post-image-container .post-image{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background-size: 100%;
+	background-color: gray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.post .post-image-container .post-image img,
+.post .post-image-container .post-image video{
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.post .post-image-container .post-image .icons{
+	position: absolute;
+	padding: 0;
+	top: 10%;
+	left: 5%;
+	display: flex;
+}
+.post .post-image-container .post-image .icon{
+	width: 30px;
+	height: 30px;
+	margin: 10px;
+	background-size: contain;
+	cursor: pointer;
+}
+.post .post-image-container .post-image .icon.upload{
+	position: absolute;
+	bottom: 5%;
+}
+.post .post-image-container .post-image .icon.confirm-edit:hover{
+	color: green;
+}
+
+.post .post-infos{
+	padding: 0 0.5rem;
+	padding-top: 7%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(3, 1fr);
+	grid-column-gap: 0rem;
+}
+
+.caption-label{
+	grid-column: 1/-1;
+}
+.post .post-infos .caption{
+    height: 100px;
+    overflow: auto;
+    margin-right: 100px;
+    margin-bottom: 0.7rem;
+    resize: none;
+}
+
+.post .post-icons,
+.post .post-icons a{
+	display: flex;
+	align-items: center;
+}
+
+.post .post-icons{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.post .post-icons .icon{
+	background-position:  center;
+	background-size: 60%;
+	background-repeat: no-repeat;
+	margin-right: 2rem;
+	padding: 0;
+	transition: all 0.5s ease;
+}
+
+.post .post-icons .icon.delete.remove-alert{
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	top: 0;
+	margin-right: 0;
+	background-size: 40px;
+	background-color: rgba(255, 0, 0, .7);
+}
+
+
+.post textarea:disabled,
+.post input:disabled{
+	border: 0;
+	background-color: white;
+	outline: none;
+	box-shadow: none;
+}
+
+@media screen and (min-width: 39.9375em) {
+	.post{
+		grid-template-rows: 1fr;
+		grid-template-columns: 2fr 5fr 1fr;
+	}
+
+	.post .post-infos{
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		grid-column-gap: 1rem;
+	}
+}

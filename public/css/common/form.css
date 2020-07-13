@@ -1,0 +1,82 @@
+.form{
+	background-color: inherit;
+	padding: 1rem;
+}
+
+.form .has-tip:hover{
+	color: #FCBA9C;
+}
+
+.form .field{
+	min-height: 86px;
+	display: grid;
+	align-items: center;
+}
+.form .field.title{
+	margin-bottom: 3rem;
+}
+
+.form .checkbox-inputs label{
+	display: inline;
+	margin-right: 1rem;
+}
+
+.form .checkbox-inputs label input[type="checkbox"]{
+	background-color: white;
+}
+
+.field .checkbox-container{
+	position: relative;
+	display: flex;
+	align-items: center;	
+}
+.field .checkbox-container span{
+	margin-left: 2rem;
+}
+
+.form input[type="text"],
+.form input[type="number"],
+.form input[type="email"],
+.form input[type="date"],
+.form input[type="datetime-local"]{
+	margin: 0;
+	background-color: inherit;
+	border-radius: 3px;
+}
+
+select{
+	height: 50px;
+    border: 0;
+    box-shadow: none;
+    border-bottom: 2px solid #e0e0e0;
+}
+select:focus{
+	background-color: inherit;
+}
+
+.form textarea{
+	border-radius: 5px;
+	resize: none;
+}
+
+
+/* DISABLED INPUTS */
+.form textarea:disabled,
+.form select:disabled,
+.form input:disabled,
+.form input:-internal-autofill-selected{
+	border: 0;
+	background-color: white !important;
+	box-shadow: none;
+}
+
+.form input[type="submit"]:disabled{
+	display: none;
+}
+
+.form select:disabled {
+    background-image: none;
+}
+
+
+

@@ -1,0 +1,95 @@
+<div class="page profiles">
+  
+  <header class="page-header">
+    <div class="page-icon contain-image profiles-icon"></div>
+    <h1 class="page-title">Profiles</h1>
+
+  </header>
+ 
+
+  
+    
+    <!-- <p> <p><strong>For load profile options:</strong></p> Write the profile name in the white filed or Select it from the drop down menu </p>
+    <p> <p><strong>For create a new profile:</strong></p>  1) Write the new profile name in the white field. 2) Fill the fields that you want. 3) Click Create new user button </p>
+    <p> <p><strong>For run the bot:</strong></p>  1) Write the profile name in the white field or select it from the drop down menu. 2) click the 'Run bot' Button </p>
+    <p> <p><strong>For Delete a profile:</strong></p>  1) Write the profile name in the white field or select it from the drop down menu. 2) click the 'Delete profile' Button </p> -->
+      
+  
+  <div class="top-container">
+    <%include ../partials/profiles_actions.ejs%>
+    <div class="row">
+      <div class="column medium-2">
+
+
+        <a class="help-link" href="#" data-reveal-id="profilesModal">Click for help <div class="icon contain-image help-icon"></div></a>
+        <div id="profilesModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+          <div class="getting-started-guide profiles-guide">
+            <%include ../partials/start_guide_image.ejs%>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/profiles/profiles2.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/profiles/profiles3.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/profiles/profiles4.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/profiles/profiles6.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/profiles/profiles8.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/profiles/profiles7.jpg')"></div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            //Slick Slider - Home Slider
+            $('.profiles-guide').slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              // autoplay: true,
+              // autoplaySpeed: 6000,
+              lazyLoad: 'progressive',
+              pauseOnHover: false,
+              swipe: true,
+              arrows: true,
+              prevArrow: '<a class="slick-prev"><i class="fas fa-chevron-left"></i></a>',
+              nextArrow: '<a class="slick-next"><i class="fas fa-chevron-right"></i></a>',
+              fade: true,
+            });
+          });
+        </script>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class=" medium-6 end column">
+        <label> Select profile </label>
+
+        <div class="selectem profiles"> 
+          <span class="selectem_label">
+            <div class="icon contain-image profiles-icon"></div>
+            <div class="name">Profiles</div>
+          </span>
+          <div class="selectem_dropdown">
+            <input class="selectem-value" name="selectemVal" type="hidden" >
+            <ul class="selectem-items">
+              
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+
+      <div class=" medium-6 end column">
+        <div>
+          <label>Create new profile</label>
+          <input type="text" id="profile-name" name="">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="form">
+    
+
+    </div>
+  </div>
+</div>

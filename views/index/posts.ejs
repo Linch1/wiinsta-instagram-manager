@@ -1,0 +1,285 @@
+<div class="page posts">
+
+  <header class="page-header">
+    <div class="page-icon contain-image posts-icon"></div>
+    <h1 class="page-title">Posts</h1>
+  </header>
+
+  <div class="top-container">
+    <%include ../partials/posts_actions.ejs%>
+    <div class="row">
+      <div class="column medium-2">
+
+
+        <a class="help-link" href="#" data-reveal-id="postsModal">Click for help <div class="icon contain-image help-icon"></div></a>
+        <div id="postsModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+          <div class="getting-started-guide posts-guide">
+            <%include ../partials/start_guide_image.ejs%>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts1.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts2.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts3.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts4.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts5.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts6.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts7.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts8.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/posts/posts9.jpg')"></div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            //Slick Slider - Home Slider
+            $('.posts-guide').slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              // autoplay: true,
+              // autoplaySpeed: 6000,
+              lazyLoad: 'progressive',
+              pauseOnHover: false,
+              swipe: true,
+              arrows: true,
+              prevArrow: '<a class="slick-prev"><i class="fas fa-chevron-left"></i></a>',
+              nextArrow: '<a class="slick-next"><i class="fas fa-chevron-right"></i></a>',
+              fade: true,
+            });
+          });
+        </script>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class=" medium-6 column">
+        <label> Select profile </label>
+
+        <div class="selectem profiles"> 
+          <span class="selectem_label">
+            <div class="icon contain-image profiles-icon"></div>
+            <div class="name">Profiles</div>
+          </span>
+          <div class="selectem_dropdown">
+            <input class="selectem-value" name="selectemVal" type="hidden" >
+            <ul class="selectem-items">
+              
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class=" medium-2 column end">
+        <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="The number of medias the you have not yet used.">
+          <label> Medias left to use </label>
+        </span>
+        <input type="number" class="left-medias" value="1" disabled>
+      </div>
+    </div>
+    <div class="random-settings-container">
+      <div class="row">
+        <div class="column medium-8 end">
+          <h3>Random posts Settings</h3>
+        </div>
+      </div>
+      <div class="row">
+        
+        <div class=" medium-3 column end">
+          <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Thi is the start date used to create the random posts">
+            <label for="random-posts-date"> Select Random posts Start Date </label>
+          </span>
+          <input type="datetime-local" id="random-posts-date" name="">
+        </div>
+        <div class="medium-3 column end">
+          <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="This will generate the ammount of given random posts with using the given time and repeating it for the ammount of days that you select here.">
+            <label for="random-posts-days"> Repeat for how many days </label>
+          </span>
+          <input type="number" id="random-posts-days" value="1">
+        </div>
+        <div class=" medium-2 column end">
+          <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="The ammount of random posts to generate">
+            <label for="random-posts-date"> Random posts number </label>
+          </span>
+          <input type="number" id="random-posts-count" name="" value=1>
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <div class=" medium-4 column end">
+          <div class="inputGroup">
+            <input type="radio" id="random-caption" name="caption" value="random" checked>
+            <label for="random-caption">Random caption</label>
+          </div>
+        </div>
+        <div class=" medium-4 column end">
+          <div class="inputGroup">
+            <input type="radio" id="default-caption" name="caption" value="default">
+            <label for="default-caption">Default caption</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" medium-4 column end">
+          <div class="inputGroup">
+            <input type="radio" id="append-caption" name="caption" value="append">
+            <label for="append-caption"> Default + random </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+    <div class="form">
+    <% let write;%>
+    <%  for ([key, value] of Object.entries(datas)) {   %>
+      <% key_upper = key.split("_").join(" ").toUpperCase() %>
+      <%let col_val = 'medium-6 column end';%>
+      
+        <% if (value.type == 'nr') continue %>
+
+        <% if (value.type == 'di') { %>
+          <div id="<%=value.container_id%>"> 
+          </div>
+        <% } %>
+        
+        <% if (value.type == 'block') { %>
+          <% if (key_upper.trim() == 'AUTO POST'.trim()) { -%>
+            <% write = true; %>
+            <div class="field medium-12 column"> 
+              <div class="title">
+                <h3>
+                  <%=key_upper%>
+                </h3> 
+              </div>
+            </div>  
+          <% } else {-%>
+              <% write = null; %>
+          <% } %>
+        <% } %>
+        <% if(!write) continue; %>
+        <% if (value.type == 't') { %>
+        <div class="field <%=col_val%>" >
+          <label for="img_<%=key%>">
+            <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
+              <%=key_upper%>
+              <i class="far fa-question-circle"></i>
+            </span>
+          </label>
+          <input type="text" id="img_<%=key%>" data-input="<%=key%>">
+        </div>
+        <% } %>
+        
+        <% if (value.type == 'at') { %>
+        <div class="field <%=col_val%>" >
+          <label for="img_<%=key%>">
+            <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
+              <%=key_upper%>
+              <i class="far fa-question-circle"></i>
+            </span>
+          </label>
+          <% if (value.render && value.render == "textarea") { -%>
+            <textarea id="prof_<%=key%>" data-input="<%=key%>" rows="5"></textarea>
+          <% } else { -%>
+            <input type="text" id="prof_<%=key%>" data-input="<%=key%>">
+          <% } -%>
+        </div>
+        <% } %>
+        
+        <% if (value.type == 'n') { %>
+        <div class="field <%=col_val%>">
+          <label for="img_<%=key%>">
+            <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
+              <%=key_upper%>
+              <i class="far fa-question-circle"></i>
+            </span>
+          </label>
+          <input type="number" id="img_<%=key%>" data-input="<%=key%>">
+        </div>
+        <% } %>
+        
+        <% if (value.type == 'c') { %>
+        <div class="field check <%=col_val%>">
+         
+            <label for="img_<%=key%>">
+
+              <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
+                <%=key_upper%>
+                <i class="far fa-question-circle"></i>
+              </span>
+
+              <div class="switch round">
+                <input id="img_<%=key%>" type="checkbox" data-input="<%=key%>">
+                <label for="img_<%=key%>"></label>
+              </div> 
+
+            </label>
+         
+        </div>
+        <% } %>
+    <% } %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <h1 style="margin-top: 2rem;">POSTS</h1>
+    <div class="row lista lista-posts collapse">
+<!-- 
+      <div class="medium-12 column">
+        <div class="post">
+          <div class="post-image-container">
+            
+            <div class="post-image">
+              // <img src="">
+              // <video></video>
+              <div class="icons">
+                <div class="icon edit"></div>
+                <div class="icon cross cancel-edit" style="display: none"></div>
+                <i class=" icon confirm-edit fas fa-check" style="display: none"></i>
+              </div>
+              <i class="icon upload fas fa-upload" style="display: none"></i> 
+            </div>
+            
+          </div>
+          <div class="post-infos">
+            <label class="caption-label">
+              <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="You post caption">
+                Caption
+              </span>
+
+              <textarea class="caption" disabled>Nome quiz non molto lungo Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+
+            </label>
+            <label class="date-label">
+              <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="You post Date">
+                Date
+              </span>
+              <input type="datetime-local" class="date" name="" disabled>
+            </label>
+            <label class="tags-label">
+              <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" 
+              title="You post Tags, write each username separated byt '&'. Ex: user1 & user2 & user4">
+                Tgas
+              </span>
+              <input type="text" class="tags" name="" disabled>
+            </label>
+            
+          </div>
+          <div class="post-icons">
+            <div class="icon delete"></div>
+          </div>
+        </div>
+      </div>  -->
+
+    </div>
+  </div>
+    
+  
+</div>

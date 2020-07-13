@@ -1,0 +1,172 @@
+/*
+ * selectem 0.1.0
+ * https://github.com/elmahdim/selectem
+ * Author: @ElmahdiMahmoud
+ * https://github.com/elmahdim
+ */
+
+.selectem_dropdown, .selectem-items > li {
+  border-style: solid;
+  border-color: #e0e0e0;
+}
+
+.selectem {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 2rem;
+}
+
+.selectem,
+.selectem * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.selectem_label {
+  border-width: 1px;
+  background-color: #fff;
+  color: #afaeb0;
+  cursor: pointer;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0 0 0 15px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+  font-size: 20px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.selectem_label .icon{
+  margin-right: 1rem;
+}
+.selectem-input {
+  background-color: #f5f5f5;
+  font-size: 12px;
+  padding: 15px;
+  width: 100%;
+  border: 0;
+  margin: 0;
+}
+.selectem-input:focus, .selectem-input:active {
+  outline: 0;
+}
+
+.selectem {
+  -moz-perspective: 600px;
+  -webkit-perspective: 600px;
+  perspective: 600px;
+}
+.selectem_dropdown {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  z-index: -20;
+  height: 0;
+  border-width: 0 1px 1px;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -moz-transform: scale(0.1) rotateX(91deg);
+  -ms-transform: scale(0.1) rotateX(91deg);
+  -webkit-transform: scale(0.1) rotateX(91deg);
+  transform: scale(0.1) rotateX(91deg);
+}
+.selectem.is-active .selectem_dropdown {
+  z-index: 20;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+  -moz-transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+  -ms-transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+  -webkit-transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+  transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+}
+
+.selectem-items {
+  background-color: #fff;
+  border-collapse: collapse;
+  list-style: none;
+  display: table;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: absolute;
+}
+.selectem-items > li {
+  border-width: 1px 0 0;
+  display: table-row;
+  cursor: pointer;
+}
+.selectem-items > li > * {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 5px 10px;
+}
+.selectem-items > li:hover {
+  background-color: #f5f5f5;
+}
+.selectem-items .item-avatar {
+  width: 60px;
+}
+.selectem-items .item-avatar img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.selectem:after, .selectem:before {
+  right: 15px;
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  border-width: 6px;
+}
+.selectem:after {
+  border-color: rgba(205, 206, 209, 0);
+  border-top-color: #fff;
+  top: 15px;
+}
+.selectem:before {
+  border-color: rgba(245, 27, 20, 0);
+  border-top-color: #e0e0e0;
+  top: 17px;
+}
+
+.selectem.is-active .selectem_label {
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px;
+  border-radius: 5px 5px 0 0;
+}
+.selectem.is-active:after {
+  border-color: rgba(205, 206, 209, 0);
+  border-bottom-color: #fff;
+  top: 11px;
+}
+.selectem.is-active:before {
+  border-color: rgba(245, 27, 20, 0);
+  border-bottom-color: #e0e0e0;
+  top: 9px;
+}
+.selectem.is-active .selectem--dropdown {
+  z-index: 20;
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+  -moz-transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+  -ms-transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+  -webkit-transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+  transform: scale(1) rotateY(0deg) translateY(0) translateZ(0px);
+}

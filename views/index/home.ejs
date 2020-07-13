@@ -1,0 +1,55 @@
+  <%include ../partials/header.ejs%>
+  <title>Wiinsta</title>
+</head>
+<body>
+  
+  <div id="datas" style="display: none;">
+    <% let settings = JSON.stringify(datas)%>
+    <%=settings%>
+  </div>
+
+  <div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+
+      <!-- Off Canvas Menu -->
+      <aside class="left-off-canvas-menu">
+        <!-- whatever you want goes here -->
+        <% include ../partials/navbar.ejs %>
+      </aside>
+
+        <% include ../partials/top_bar.ejs %>
+
+        <div class="page-container">
+          <% include ../partials/alert.ejs %>
+          <% include dashboard.ejs %>
+          <% include profiles.ejs %>
+          <% include images.ejs %>
+          <% include posts.ejs %>
+          <% include stories.ejs %>
+          <% include stats.ejs %>
+          <% include logs.ejs %>
+        </div>
+
+    <!-- close the off-canvas menu -->
+    <a class="exit-off-canvas"></a>
+
+    </div>
+  </div>
+  <script>
+
+    $(function(){
+        if (Foundation.global){
+          Foundation.global.namespace = '';
+        }
+        $(document).foundation();
+    });
+  </script>
+  
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $('a[data-rel^=lightcase]').lightcase();
+    });
+  </script>
+
+
+<%include ../partials/footer.ejs%>

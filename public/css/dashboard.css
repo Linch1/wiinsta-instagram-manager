@@ -1,0 +1,15 @@
+.dashboard .spaceship-icon,
+.dashboard .asteroid-icon{
+	cursor: pointer;
+}
+
+.dashboard .icon.small{
+	border-radius: 10px;
+	border: 1px solid white;
+	padding: 5px;
+}
+.dashboard .icon.small:hover{
+	background-color: #EBEBEB;
+	border-color: #D6D6D6;
+}
+

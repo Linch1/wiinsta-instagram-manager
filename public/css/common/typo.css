@@ -1,0 +1,125 @@
+body{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	color: var(--base02);
+	letter-spacing: 0.48px;
+	line-height: 16px;
+}
+
+h1, h2, h3, h4, h5{
+	color: var(--base01);
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 800;
+}
+
+
+h1{
+	font-size: 30px;
+	letter-spacing: 1.2px;
+	line-height: 34px;
+}
+
+h2{
+	font-size: 22px;
+	letter-spacing: 0.88px;
+	line-height: 26px;
+}
+
+h3{
+	font-size: 18px;
+	letter-spacing: 0.72px;
+	line-height: 22px;
+}
+
+h4{
+	font-size: 16px;
+	letter-spacing: 0.64px;
+	line-height: 18px;
+}
+
+h5{
+	font-size: 14px;
+	letter-spacing: 0.56px;
+	line-height: 16px;
+}
+
+strong{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+}
+
+.nav-section a{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+	color: #FFFFFF;
+	letter-spacing: 0.8px;
+}
+
+
+.status{
+	font-size: 9px;
+	color: var(--base02);
+	letter-spacing: 1.53px;
+	line-height: 11px;
+}
+
+.dashboard_title{
+	font-size: 18px;
+	color: var(--base02);
+	letter-spacing: 0.72px;
+	line-height: 20px;
+}
+
+.form h3{
+	color: orange;
+}
+
+.form label{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 800;
+	font-size: 16px;
+}
+
+.form .checkbox-inputs label{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	color: var(--base02);
+	letter-spacing: 0.48px;
+	font-weight: 400;
+	line-height: 16px;
+}
+
+.lista-utenti .utente .nome-cognome,
+.lista-quiz .quiz .title,
+.lista-domande .domanda .title,
+.lista-classifiche .classifica .title,
+.lista-eventi .evento .title,
+.welcome-back .title, /* dashboard rule */
+.attivita-container .title, /* dashboard rule */
+.utenti-container .title, /* dashboard rule */
+.page-buttons button,
+.page-buttons input[type="submit"]{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 800;
+	font-size: 16px;
+	color: var(--base01);
+}
+
+/* QUIZ RULES */
+
+.quiz-form #header,
+.domanda-form #header,
+.utente-form #nome-utente{
+	color: var(--base01);
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 800;
+	font-size: 30px;
+	letter-spacing: 1.2px;
+	line-height: 34px;
+}
+
+/* dashboard rules */
+.attivita .summary .message,
+.utente .summary .message{
+	font-size: 20px;
+}

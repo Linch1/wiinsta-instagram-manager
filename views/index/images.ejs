@@ -1,0 +1,115 @@
+<div class="page images">
+
+  <header class="page-header">
+    <div class="page-icon contain-image images-icon"></div>
+    <h1 class="page-title">Images</h1>
+  </header>
+
+  <div class="top-container">
+    <%include ../partials/images_actions.ejs%>
+    <div class="row">
+      <div class="column medium-2">
+
+
+        <a class="help-link" href="#" data-reveal-id="imagesModal">Click for help <div class="icon contain-image help-icon"></div></a>
+        <div id="imagesModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+          <div class="getting-started-guide images-guide">
+            <%include ../partials/start_guide_image.ejs%>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/images/images.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/images/images1.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/images/images2.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/images/images3.jpg')"></div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            //Slick Slider - Home Slider
+            $('.images-guide').slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              // autoplay: true,
+              // autoplaySpeed: 6000,
+              lazyLoad: 'progressive',
+              pauseOnHover: false,
+              swipe: true,
+              arrows: true,
+              prevArrow: '<a class="slick-prev"><i class="fas fa-chevron-left"></i></a>',
+              nextArrow: '<a class="slick-next"><i class="fas fa-chevron-right"></i></a>',
+              fade: true,
+            });
+          });
+        </script>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class=" medium-6 column">
+        <label> Select profile </label>
+
+        <div class="selectem profiles"> 
+          <span class="selectem_label">
+            <div class="icon contain-image profiles-icon"></div>
+            <div class="name">Profiles</div>
+          </span>
+          <div class="selectem_dropdown">
+            <input class="selectem-value" name="selectemVal" type="hidden" >
+            <ul class="selectem-items">
+              
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class=" medium-2 column end">
+        <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="The number of medias the you have not yet used.">
+          <label> Medias left to use </label>
+        </span>
+        <input type="number" class="left-medias" value="1" disabled>
+      </div>
+    </div>
+    <div class="row">
+      <div class=" medium-6 column">
+        <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Select to show All the images or only the latest collected">
+          <label> Select Type </label>
+        </span>
+        
+        <select class="type"> 
+          <option value="latest"> Latest </option>
+          <option value="all"> All </option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="row">
+
+    <div class="form">
+    
+
+    </div>
+  </div>
+  <div class="row">
+    <h1 style="margin-top: 2rem;">CONTENTS</h1>
+    <div id="contents">
+      <!--  <div class='medium-6 column'>
+              <div class="container">
+                <div class="content">
+                  <a href="${file}" data-rel="lightcase:myCollection" title="Your title">
+                    <img src="${file}" />
+                  </a>
+                </div>
+                <div class="controls">
+                  <div class="hashtag"> #${file_split[file_split.length - 2]}</div>
+                  <i class="fas fa-trash"></i>
+                </div>
+              </div>
+            </div> -->
+    </div>
+  </div>
+    
+  
+</div>

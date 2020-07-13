@@ -1,0 +1,76 @@
+<div class="menu-container">
+  <ul id="profiles-menu" class="circle-menu">
+    <div class="menu-toggler">
+      <input type="checkbox" name="">
+      <span></span>
+      <span></span>
+    </div>
+    <span></span>
+
+    <li id="run" class=" action contain-image spaceship-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Run selecte profile bot">
+          <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" contain-image asteroid-icon stop">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Stop selected profile bot">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" send-edits contain-image save-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Save Settings">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" clear-fields contain-image clear-text-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Clear fields">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li id="api-login" class=" contain-image api-login-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Login the api of the selected profile">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li id="run-all" class=" contain-image run-all-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Run All profiles bots">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" stop-all contain-image stop-all-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Stop all profiles bot">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" clear-session contain-image delete-session-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Clear selected profile session">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" delete contain-image delete-profile-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Delete selected profile">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+  </ul>
+</div>
+<script type="text/javascript">
+$( document ).ready(function() {
+  console.log(jQuery())
+    jQuery('#profiles-menu').circle_menu({
+        angle_initial: -90,
+        angle_increment: -22.5,
+        radius:160
+    });
+});
+
+</script>

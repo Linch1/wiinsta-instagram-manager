@@ -1,0 +1,70 @@
+<div class="menu-container">
+  <ul id="images-menu" class="circle-menu">
+    <div class="menu-toggler">
+      <input type="checkbox" name="">
+      <span></span>
+      <span></span>
+    </div>
+    <span></span>
+
+    <li id="run-collector" class=" action contain-image spaceship-img-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Run selected profile Image collector">
+          <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" contain-image asteroid-img-icon stop">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Stop selected profile Image collector">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" send-edits contain-image save-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Save Settings">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" delete-images contain-image delete-images-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Delete All images">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li id="run-collector-all" class=" contain-image run-all-img-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Run All profiles Images collectors">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class="stop-all contain-image stop-all-img-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Stop all profiles Images collectors">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" clear-session contain-image delete-session-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Clear selected profile session">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class=" delete contain-image delete-profile-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Delete selected profile">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+  </ul>
+</div>
+<script type="text/javascript">
+$( document ).ready(function() {
+  console.log(jQuery())
+    jQuery('#images-menu').circle_menu({
+        angle_initial: -90,
+        angle_increment: -25.7,
+        radius:160
+    });
+});
+
+</script>

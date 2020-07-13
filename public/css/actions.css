@@ -1,0 +1,18 @@
+.actions{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-around;
+	font-size: 18px;
+	margin-bottom: 2rem;
+}
+
+.actions .action{
+	padding: 0.5rem;
+}
+
+.actions .action:hover{
+	background: rgba(255, 255, 255, .5);
+	border-radius: 5px;
+}

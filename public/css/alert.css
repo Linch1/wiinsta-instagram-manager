@@ -1,0 +1,79 @@
+.alert{
+	max-width: 90%;
+	position: fixed;
+	min-height: 100px;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 0%;
+	opacity: 0;
+	z-index: 1;
+	border-radius: 10px;
+	background: #333333;
+	transition: top 1s, opacity 1s;
+	color: white;
+	display: block;
+	padding: 1rem 2rem;
+	text-align: center;
+	pointer-events: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	word-wrap: break-word;
+}
+
+.alert-text{
+	max-width: 100%;
+}
+
+.alert.inview{
+	top: 10%;
+	opacity: 1;
+	z-index: 4;
+	pointer-events: all;
+}
+
+.alert-close{
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	cursor: pointer;
+	width: 5%;
+	height: 20%;
+}
+
+.alert-form{
+	display: flex;
+	width: 100%;
+	align-items: flex-start;
+	justify-content: space-around;
+}
+
+#warning_input_send{
+	font-size: 20px;
+	padding: 7px;
+	border: 1px solid white;
+}
+
+.alert-buttons{
+	min-width: 150px;
+	width: 100%;
+	margin-top: 20px;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+.alert-buttons div{
+	border-radius: 5px;
+	width: 40%;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.alert-buttons .confirm{
+	background-color: #81A448;
+}
+.alert-buttons .close{
+	background-color: #F76848;
+}

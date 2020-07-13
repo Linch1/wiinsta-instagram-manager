@@ -1,0 +1,58 @@
+<div class="menu-container">
+  <ul id="posts-menu" class="circle-menu">
+    <div class="menu-toggler">
+      <input type="checkbox" name="">
+      <span></span>
+      <span></span>
+    </div>
+    <span></span>
+
+    <li class=" random-posts action contain-image random-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Generate random posts. Specify the number of posts in the field and it will generate 'x' random post starting from the given start time.">
+          <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class="add-post contain-image new-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Add custom post">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class="send-edits contain-image save-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Save Settings">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class="delete-posts contain-image delete-scheduled-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Delete All posts">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class="clear-session contain-image delete-session-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Clear selected profile session">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+    <li class="delete contain-image delete-profile-icon">
+      <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="Delete selected profile">
+        <div class="block"></div>
+      </span>
+    </li> 
+
+  </ul>
+</div>
+<script type="text/javascript">
+$( document ).ready(function() {
+  console.log(jQuery())
+    jQuery('#posts-menu').circle_menu({
+        angle_initial: -90,
+        angle_increment: -36,
+        radius:160
+    });
+});
+
+</script>

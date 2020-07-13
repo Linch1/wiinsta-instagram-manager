@@ -1,0 +1,52 @@
+.settings-container{
+  position: absolute;
+
+  width: 25px;
+  height: 25px;
+
+  top: 15%;
+  right: 5%;
+
+  z-index: 10;
+  pointer-events: all;
+  
+  background-position:  center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.settings {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.settings .settingstext {
+  visibility: hidden;
+  border: 1px solid var(--base03);
+  background: white;
+  border-radius: 5px;
+  text-align: center;
+  padding: 0.25rem;
+
+  position: absolute;
+  right: 100%;
+  top: 20%;
+  display: flex;
+  z-index: 1;
+}
+
+.settingstext .icon{
+    width: 35px;
+    height: 35px;
+    background-position:  center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    padding: 0;
+}
+
+.settings-container:hover .settingstext {
+  visibility: visible;
+}
