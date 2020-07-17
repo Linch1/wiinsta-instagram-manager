@@ -52,6 +52,7 @@
 * [✔️] Auto unfollow
 * [✔️] Auto like
 * [✔️] Auto comments
+* [✔️] Auto dm
 * [✔️] Custom Interactions limits
 * [✔️] Auto post
 * [✔️] Scheduled posts/stories

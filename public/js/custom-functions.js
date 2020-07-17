@@ -496,6 +496,7 @@ function populate_inputs(){
 		} else if (type == 'n') {
 			field.val(data);
 		} else if (type == 'at') {
+			if(!data) continue;
 			field.val(data.join(' & '));
 		}		
 	}
@@ -978,7 +979,6 @@ function check_file_in_used_list(profile, file){
 	if(!exists_file(used_path)) throw ({'No file found':'The used file not exists'});
 	let used = read_file(used_path);
 	used = JSON.parse(used);
-	console.log(used);
 	return used.includes(file);
 }
 
@@ -1023,6 +1023,7 @@ var myChart = new Chart(ctx, {
 var CHARTS = {};
 function init_charts(obj){
 	if(Object.keys(CHARTS).length) return;
+	console.log(obj);
 	let currentUser = getCurrentUser();
 	let summary_stats = $('.summary-stats .bxslider');
 	for ([stat, value] of Object.entries(obj)){
@@ -1069,12 +1070,26 @@ function draw_stats(){
 	}
 
 	let global_stats = getCurrentObject()["stats"];		// get the stats object
+
 	let keys = Object.keys(global_stats);	// get the stats days
 	if( keys.length <= 1 ) {
 		show_warning("PROFILE: " + currentUser + " Have too few datas to show its stats");
 		return;
 	};
-	init_charts(global_stats[keys[0]]);
+	init_charts({
+                "posts": 0,
+                "following": 0,
+                "followers": 0,
+                "likes": 0,
+                "comments": 0,
+                "follow": 0,
+                "unfollow": 0,
+                "visited": 0,
+                "public": 0,
+                "private": 0,
+                "noPost": 0,
+                "messages": 0
+            });
 
 	let days = [];
 	let datas = {};
@@ -1101,6 +1116,7 @@ function draw_stats(){
 	for ([day, stats] of Object.entries(global_stats)){
 		days.push(day);
 		for ([stat, value] of Object.entries(stats)){
+
 			if(NO_RENDER_GRAPHS.includes(stat)) continue;
 			if(!datas[stat]) datas[stat] = [];
 			datas[stat].push(value);

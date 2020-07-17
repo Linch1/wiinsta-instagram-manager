@@ -87,6 +87,7 @@ Instagram api manual:
   - :zap: _follow no post_ : Allow the bot to follow **profiles without posts**
   - :zap: _left comment_ : Allow the bot to **left a custom comment** under the posts of the visited user
   - :zap: _left like_ : Allow the bot to **left a like** under the posts of the visited user
+  - :zap: _left message_ : Allow the bot to **left a dm** to the visited user
   - :zap: _unfollow_ : Allow the bot to **unfollow someone**
     - **The _unfollow_ action is made only on _profiles that the bot has previously followed_**.
   
@@ -97,6 +98,7 @@ Instagram api manual:
   - :zap: _pages for profile collection_ : A **list** of pages from where the bot collect the profiles with which interact. ( **&** separator )
   - :zap: _number of comments_ : The number of comments that the bot has to left on the visited profile.
   - :zap: _comment_ : A **list** of commets from where the bot can choiche for pick a comment to left. ( **&** separator )
+  - :zap: _message_ : A **list** of messages from where the bot can choiche for pick a text to send to the visited user. ( **&** separator )
   - :zap: _delay_ : The delay that the bot has to sleep before to start another **Interactions cycle** with the next user. _Interactions with user1 + unfollow_ ---> **sleep delay**  ---> _Interactions with user2 + unfollow_ ---> **sleep delay** ---> ....
   - :zap: _start unfollow_: The number of people that the bot has to follow before that it starts to unfollow someone. if _start unfollow = 100_ it will start to unfollow after 100 profiles followed.
   - :zap: _random actions_: This setting randomize the actions:
@@ -104,6 +106,7 @@ Instagram api manual:
     - comments: The bot will left a random number of comments, from 1 to _number of comments_.
     - follow: The bot will follow or not the visited profile.
     - unfollow: The bot will unfollow or not someone.
+    - messages: THe bot will send or not a dm to the visited profile.
   - :zap: _random time_: This settings randomize the _sleep delay_ between one interaction cycle and another.
     - The bot will sleep from **delay**/2 to 2 * **delay**
   - :zap: _collect following time_: The delay that the bot has for scrape your profile following list and find who it has to unfollow by comparing your following list with the previously followed peoples.
@@ -114,6 +117,7 @@ Instagram api manual:
   - :zap: _likes per day_ : The maximum range of likes to left in one day.
   - :zap: _unfollow per day_: The maximum range of unfollow to left in one day.
   - :zap: _comment per day_ : The maximum range of commets to left in one day.
+  - :zap: _message per day_ : The maximum range of messages to left in one day.
   
 #### :cyclone: **Images Collector**:
   - :zap: _hashtags_: The hashtags **list** from where you want the bot to collect the images from, you can add too profiles name. **@** for profiles, **#** for hashtags, **!** for absolute paths of folders ( **&** separator ) ex: ( #hashtag1 & #hashtag2 & @profile1 & @profile2 & !abs/path/to/folder).

@@ -5,17 +5,19 @@ Logic
 */
 
 /* TO DO *
-// - ITA -
+// -- ITA --
 // - aggiungere funzioni specifiche per inserire - eliminare immagini dai file ( come per used )
 // - gestire gli alert in modo che se si sovrappongono quello prima non viene cancellato. 
 //   Nell'ipotesi che appena installato il bot mostri sia il welcome message che un ipotetica notifica in coda.
-
-* External modules imports [Shared bewtween files] *
 
 */
 
 
 
+
+/*
+* External modules imports [Shared bewtween files] *
+*/
 const
     remote = require('electron').remote,
     app = remote.app,
@@ -181,6 +183,14 @@ var SETTINGS;
     POST_TAGS_SECTION = SETTINGS["selectors"]["POST_TAGS_SECTION"];
     POST_TAGS_BUTTON = SETTINGS["selectors"]["POST_TAGS_BUTTON"];
 
+    INSTAGRAM_DM = SETTINGS["selectors"]["INSTAGRAM_DM"];
+    POPUP_DM_PAGE = SETTINGS["selectors"]["POPUP_DM_PAGE"];
+    SEARCH_BUTTON_DM_PAGE = SETTINGS["selectors"]["SEARCH_BUTTON_DM_PAGE"];
+    SEARCH_TEXT_FIELD_NAME = SETTINGS["selectors"]["SEARCH_TEXT_FIELD_NAME"];
+    FOUND_USER = SETTINGS["selectors"]["FOUND_USER"];
+    OPEN_CHAT_BUTTON = SETTINGS["selectors"]["OPEN_CHAT_BUTTON"];
+    SUBMIT_BUTTON_DM = SETTINGS["selectors"]["SUBMIT_BUTTON_DM"];
+
     let notify_id = SETTINGS["pushNotification"].id;
     if (notify_id != -1 && notify_id != getShared()['last-notification-id']) {
         /*
@@ -284,6 +294,14 @@ var WHITELIST,
 
     POST_TAGS_SECTION,
     POST_TAGS_BUTTON,
+
+    INSTAGRAM_DM,
+    POPUP_DM_PAGE,
+    SEARCH_BUTTON_DM_PAGE,
+    SEARCH_TEXT_FIELD_NAME,
+    FOUND_USER,
+    OPEN_CHAT_BUTTON,
+    SUBMIT_BUTTON_DM,
 
     ACTIVE;
 
@@ -461,7 +479,8 @@ class instabot {
                 "visited": 0,
                 "public": 0,
                 "private": 0,
-                "noPost": 0
+                "noPost": 0,
+                "messages": 0
             }
         }
 
@@ -478,12 +497,14 @@ class instabot {
         this.unfollow = this.PROFILE['unfollow'];
         this.leftComment = this.PROFILE['left_comment'];
         this.leftLike = this.PROFILE['left_like'];
+        this.leftMessage = this.PROFILE['left_message'];
         this.numberOfComments = this.PROFILE['number_of_comments'];
         this.numberOfLikes = this.PROFILE['number_of_likes'];
         this.username = this.PROFILE['username'];
         this.password = this.PROFILE['password'];
         this.sessionId = this.PROFILE['session_id'];
         this.commentText = this.PROFILE['comment'];
+        this.messageText = this.PROFILE['message'];
         this.delay = this.PROFILE['delay'];
 
         this.random_time = this.PROFILE['random_time'];
@@ -494,10 +515,12 @@ class instabot {
         this.collectFollowingDelay = this.PROFILE['collect_following_time'];
         this.collectToFollowDelay = this.PROFILE['collect_to_follow_time'];
         this.collectProfilesPages = this.PROFILE['pages_for_porifle_collection'];
+
         this.max_follow = this.PROFILE['follow_per_day'];
         this.max_likes = this.PROFILE['likes_per_day'];
         this.max_comments = this.PROFILE['comment_per_day'];
         this.max_unfollow = this.PROFILE['unfollow_per_day'];
+        this.max_messages = this.PROFILE['message_per_day'];
 
         this.hashtags = this.PROFILE['hashtags'];
         this.collectImages = this.PROFILE['collect_images'];
@@ -535,18 +558,24 @@ class instabot {
     reloadSettings() {
         let S = ProfilesDatas[this.profile_name];
         S["profile"] = this.PROFILE = JSON.parse(read_file(S["profile_fl"]));
+
         this.followNoPost = this.PROFILE['follow_noPost'];
         this.followPrivate = this.PROFILE['follow_private'];
         this.followPublic = this.PROFILE['follow_public'];
         this.unfollow = this.PROFILE['unfollow'];
         this.leftComment = this.PROFILE['left_comment'];
+        this.leftMessage = this.PROFILE['left_message'];
         this.leftLike = this.PROFILE['left_like'];
+
         this.numberOfComments = this.PROFILE['number_of_comments'];
         this.numberOfLikes = this.PROFILE['number_of_likes'];
         this.username = this.PROFILE['username'];
         this.password = this.PROFILE['password'];
         this.sessionId = this.PROFILE['session_id'];
+
         this.commentText = this.PROFILE['comment'];
+        this.messageText = this.PROFILE['message'];
+
         this.delay = this.PROFILE['delay'];
         this.random_time = this.PROFILE['random_time'];
         this.random_actions = this.PROFILE['random_actions'];
@@ -555,10 +584,13 @@ class instabot {
         this.collectFollowingDelay = this.PROFILE['collect_following_time'];
         this.collectToFollowDelay = this.PROFILE['collect_to_follow_time'];
         this.collectProfilesPages = this.PROFILE['pages_for_porifle_collection'];
+
         this.max_follow = this.PROFILE['follow_per_day'];
         this.max_likes = this.PROFILE['likes_per_day'];
         this.max_comments = this.PROFILE['comment_per_day'];
         this.max_unfollow = this.PROFILE['unfollow_per_day'];
+        this.max_messages = this.PROFILE['message_per_day'];
+
         this.hashtags = this.PROFILE['hashtags'];
         this.collectImages = this.PROFILE['collect_images'];
         this.collectImagesDelay = this.PROFILE['collect_images_delay'] * 60 * 1000; // come input vuole minuti
@@ -783,16 +815,16 @@ class instabot {
 				const setValue = Object.getOwnPropertyDescriptor(
 					window.HTMLInputElement.prototype,
 					"value"
-				).set
+				).set;
 				const modifyInput = (name, value) => {
-					const input = document.getElementsByName(name)[0]
-					setValue.call(input, value)
-					input.dispatchEvent(new Event('input', { bubbles: true}))
+					const input = document.getElementsByName(name)[0];
+					setValue.call(input, value);
+					input.dispatchEvent(new Event('input', { bubbles: true}));
 				}
-				modifyInput('username', '` + this.username + `')
-				modifyInput('password', '` + this.password + `')
+				modifyInput('username', '` + this.username + `');
+				modifyInput('password', '` + this.password + `');
 				await sleep(1000);
-				const button = document.querySelector("${LOGIN_BUTTON}")
+				const button = document.querySelector("${LOGIN_BUTTON}");
 				button.click();
 				return;
 				}
@@ -917,14 +949,17 @@ class instabot {
         
         this.STATS[this.day]['public'] += 1;
         if (this.blocked_actions) {
-        
             return;
         }
         let likes_to_left = (this.leftLike) ? ((this.random_actions === true) ? randomRange(1, this.numberOfLikes) : this.numberOfLikes) : 0;
 
-        if (likes_to_left != 0 && !(this.STATS[this.day]['likes'] > this.max_likes)) {
-            this.add_log("info", `Lefting ${likes_to_left} likes`);
-            await this.account_window.webContents.executeJavaScript(`
+        if (likes_to_left == 0 || this.STATS[this.day]['likes'] > this.max_likes){
+            this.add_log('info', `Not lefting likes`);
+            return;
+        }
+
+        this.add_log("info", `Lefting ${likes_to_left} likes`);
+        await this.account_window.webContents.executeJavaScript(`
 			// posts vengono definiti in this.check_user_type quindi non c'è bisogno di redifinirli
 
 			async function send_likes() {
@@ -948,33 +983,28 @@ class instabot {
 			send_likes()
 		`);
 
-            this.STATS[this.day]['likes'] += likes_to_left;
-
-        } else {
-            this.add_log('info', `Not lefting likes`);
-        }
-       
-        return;
-        
+        this.STATS[this.day]['likes'] += likes_to_left;
     }
+
     /*
     @info: left the comments to the profile page based on the settings
     */
     async comments_action() {
             
-            if (this.blocked_actions) {
-          
+            if (this.blocked_actions) return;
+            
+            let comments_to_left = (this.leftComment) ? ((this.random_actions === true) ? randomRange(0, this.numberOfComments) : this.numberOfComments) : 0;
+            
+            if (comments_to_left == 0 || this.STATS[this.day]['comments'] > this.max_comments) {
+                this.add_log('info', `Not lefting comments`);
                 return;
             }
-            let comments_to_left = (this.leftComment) ? ((this.random_actions === true) ? randomRange(0, this.numberOfComments) : this.numberOfComments) : 0;
+            this.add_log("info", `Lefting ${comments_to_left} comments`);
+            let randomnum = randomRange(0, this.commentText.length - 1);
+            let comments = this.commentText;
 
-            if (comments_to_left != 0 && (this.STATS[this.day]['comments'] < this.max_comments)) {
-                this.add_log("info", `Lefting ${comments_to_left} comments`);
-                let randomnum = randomRange(0, this.commentText.length - 1);
-                let comments = this.commentText;
-
-                // console.log(comments, " index: ", randomnum, "comment: ", comments[randomnum])
-                await this.account_window.webContents.executeJavaScript(`
+            // console.log(comments, " index: ", randomnum, "comment: ", comments[randomnum])
+            await this.account_window.webContents.executeJavaScript(`
 				// posts vengono definiti in this.check_user_type quindi non c'è bisogno di redifinirli
 				const set_comment = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
 
@@ -1017,13 +1047,7 @@ class instabot {
 				send_comments()
 			`);
 
-                this.STATS[this.day]['comments'] += comments_to_left;
-
-            } else {
-                this.add_log('info', `Not lefting comments`);
-            }
-         
-            return;
+            this.STATS[this.day]['comments'] += comments_to_left;
  
     }
     /*
@@ -1071,15 +1095,18 @@ class instabot {
     async follow_action() {
            
         if (this.blocked_actions) {
-           
             return;
         }
 
         let follow = (this.random_actions === true) ? randomRange(0, 1) : 1;
-        if (follow && !(this.STATS[this.day]['follow'] > this.max_follow)) {
-            this.add_log('info', `Following user`);
-            await this.define_sleep();
-            await this.account_window.webContents.executeJavaScript(`
+        if (!follow || this.STATS[this.day]['follow'] > this.max_follow) {
+            this.add_log('info', `Not following user`);
+            return;
+        }
+
+        this.add_log('info', `Following user`);
+        await this.define_sleep();
+        await this.account_window.webContents.executeJavaScript(`
 		
 			async function follow() {
 
@@ -1101,15 +1128,13 @@ class instabot {
 			follow();
 		`);
 
-            this.STATS[this.day]['follow'] += 1;
+        this.STATS[this.day]['follow'] += 1;
 
-            this.PROFILE['followed_range'] = this.PROFILE['followed_range'] + 1;
-            write_file(this.PROFILE_FL, JSON.stringify(this.PROFILE));
-            ProfilesDatas[this.profile_name]["toUnfollow"].push(this.current_user);
-            write_file(this.TO_UNFOLLOW_FL, JSON.stringify(ProfilesDatas[this.profile_name]["toUnfollow"]));
-        } else {
-            this.add_log('info', `Not following user`);
-        }
+        this.PROFILE['followed_range'] = this.PROFILE['followed_range'] + 1;
+        write_file(this.PROFILE_FL, JSON.stringify(this.PROFILE));
+        ProfilesDatas[this.profile_name]["toUnfollow"].push(this.current_user);
+        write_file(this.TO_UNFOLLOW_FL, JSON.stringify(ProfilesDatas[this.profile_name]["toUnfollow"]));
+
        
         return;
       
@@ -1246,78 +1271,63 @@ class instabot {
         }
 
         let unfollow = (this.unfollow) ? ((this.random_actions === true) ? randomRange(0, 1) : 1) : 0;
-        if (unfollow && !(this.STATS[this.day]['unfollow'] > this.max_unfollow)) {
-            await this.visit_user(this.username);
-            await this.define_sleep();
-            let following_profiles = await this.collect_following(this.username)
-                .catch(e => {
-                    this.add_log('error', `Profiles to unfollowCollector: Error : ${e}. Probably caused from wrong username in the settings`);
-                });
-            if (!following_profiles) {
-          
-                return;
-            }
-            let to_unfollow = ProfilesDatas[this.profile_name]["toUnfollow"];
 
-            for (let i = 1; i <= following_profiles.length; i++) {
-
-                let following_user = following_profiles[following_profiles.length - i];
-                if (to_unfollow.includes(following_user)) {
-                    this.add_log('info', `Unfollowing ${following_user}`);
-
-                    await this.account_window.webContents.executeJavaScript(`
-						async function unfollow(){
-							await sleep(1000);
-							let xpath = "//div[contains(concat(' ',@class,' '), '${UNFOLLOW_NAME_DIV}') and contains(., '${following_user}')]";
-							let name_div = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-							let parent_div = name_div.parentElement.parentElement.parentElement;
-							let unfollow_button = parent_div.querySelector("${UNFOLLOW_BUTTON}");
-
-							unfollow_button.click();
-
-							await sleep(1000);
-
-							let confirm_unfollow = document.querySelector("${CONFIRM_UNFOLLOW_BUTTON}");
-							confirm_unfollow.click();
-						}
-
-						unfollow()
-					`)
-                        .then(r => {
-                            this.STATS[this.day]['unfollow'] += 1;
-                            this.PROFILE['followed_range'] = this.PROFILE['followed_range'] - 1;
-
-                            to_unfollow.remove(following_user);
-                            write_file(this.TO_UNFOLLOW_FL, JSON.stringify(to_unfollow));
-                            write_file(this.PROFILE_FL, JSON.stringify(this.PROFILE));
-                        })
-                        .catch(e => {
-                            this.add_log('error', `Error: ${e}`);
-                        });
-
-                    break
-                }
-            }
-
-        } else {
+        if (!unfollow || this.STATS[this.day]['unfollow'] > this.max_unfollow) {
             this.add_log('info', `Not unfollowing`);
+            return;
         }
 
- 
-        return;
- 
-    }
+        await this.visit_user(this.username);
+        await this.define_sleep();
+        let following_profiles = await this.collect_following(this.username)
+            .catch(e => {
+                this.add_log('error', `Profiles to unfollowCollector: Error : ${e}. Probably caused from wrong username in the settings`);
+            });
+        if (!following_profiles) {
+        
+            return;
+        }
+        let to_unfollow = ProfilesDatas[this.profile_name]["toUnfollow"];
 
-    /*
-    @info: define the sleep function in the current window
-    */
-    define_sleep() {
-        if (!this.account_window) return;
-        return this.account_window.webContents.executeJavaScript(`
-			function sleep(ms) {
-				return new Promise(resolve => setTimeout(resolve, ms));
-			}
-		`)
+        for (let i = 1; i <= following_profiles.length; i++) {
+
+            let following_user = following_profiles[following_profiles.length - i];
+            if (to_unfollow.includes(following_user)) {
+                this.add_log('info', `Unfollowing ${following_user}`);
+
+                await this.account_window.webContents.executeJavaScript(`
+					async function unfollow(){
+						await sleep(1000);
+						let xpath = "//div[contains(concat(' ',@class,' '), '${UNFOLLOW_NAME_DIV}') and contains(., '${following_user}')]";
+						let name_div = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+						let parent_div = name_div.parentElement.parentElement.parentElement;
+						let unfollow_button = parent_div.querySelector("${UNFOLLOW_BUTTON}");
+
+						unfollow_button.click();
+
+						await sleep(1000);
+
+						let confirm_unfollow = document.querySelector("${CONFIRM_UNFOLLOW_BUTTON}");
+						confirm_unfollow.click();
+					}
+
+					unfollow()
+				`)
+                    .then(r => {
+                        this.STATS[this.day]['unfollow'] += 1;
+                        this.PROFILE['followed_range'] = this.PROFILE['followed_range'] - 1;
+
+                        to_unfollow.remove(following_user);
+                        write_file(this.TO_UNFOLLOW_FL, JSON.stringify(to_unfollow));
+                        write_file(this.PROFILE_FL, JSON.stringify(this.PROFILE));
+                    })
+                    .catch(e => {
+                        this.add_log('error', `Error: ${e}`);
+                    });
+
+                break
+            }
+        }
     }
 
     /*
@@ -1852,6 +1862,199 @@ class instabot {
     }
 
     /*
+    @info: define the sleep function in the current window
+    */
+    define_sleep() {
+        if (!this.account_window) return;
+        return this.account_window.webContents.executeJavaScript(`
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        `)
+    }
+
+    async auto_dm(user){
+
+        if(!this.leftMessage) return;
+        if(this.STATS[this.day]['messages'] > this.max_messages) return;
+        let send_dm = (this.random_actions === true) ? randomRange(0, 1) : 1;
+        if(!send_dm) return;
+
+        await this.open_dm_page();
+        await this.go_to_dm(user);
+        let message = this.messageText[randomRange(0, this.messageText.length - 1)];
+        await this.write_dm(message);
+        await this.send_dm();
+        this.STATS[this.day]['messages'] ++;
+    }
+
+    async open_dm_page(){
+        this.account_window.loadURL(INSTAGRAM_DM);
+        await this.define_sleep();
+        await this.account_window.webContents.executeJavaScript(`
+            sleep(1000);
+            let popup = document.querySelector("${POPUP_DM_PAGE}"); //<
+            if(popup) popup.click()
+        `);
+    }
+
+    async go_to_dm(user){
+
+        let found_button = await this.account_window.webContents.executeJavaScript(`
+            ( async () => {
+
+                await sleep(1000);
+                let found = true;
+                let find_search_button = document.querySelector("${SEARCH_BUTTON_DM_PAGE}"); //<
+                if(find_search_button) find_search_button.click();
+                else found = false;
+                return found; 
+
+            })();
+        `).then(res => {
+            this.add_log('success', `search button clicked in dm page`);
+            return res;
+        })
+        .catch(err => {
+            this.add_log('error', `Error in clicking button in dm page: ${err}`);
+            return false;
+        });
+
+        if(!found_button){
+            this.add_log("error", "could not click the search button in the dm page");
+            return false;
+        };
+
+        let opened_chat = await this.account_window.webContents.executeJavaScript(`
+
+            
+            ( async () => {
+
+            await sleep(1000);
+
+            // ---- SEARCH USER ----
+            const setValue = Object.getOwnPropertyDescriptor(
+                window.HTMLInputElement.prototype,
+                "value"
+            ).set;
+            const modifyInput = (name, value) => {
+                const input = document.getElementsByName(name)[0];
+                setValue.call(input, value);
+                input.dispatchEvent(new Event('input', { bubbles: true}));
+            }
+
+            modifyInput('${SEARCH_TEXT_FIELD_NAME}', '${user}');
+
+
+            // ---- WAIT USER SEARCH QUERY TO END ( MAX: 10 SEC ) ----
+            let timeout = 10;
+            let loaded_users = document.querySelector("${FOUND_USER}"); //<
+            while(!loaded_users && timeout > 0){
+                loaded_users = document.querySelector("${FOUND_USER}"); //<
+                await sleep(1000);
+                timeout --;
+                console.log(timeout);
+            }
+            if( timeout <= 0 ) return false;
+
+
+            // ---- CLICK THE FIRST USER FOUND ----
+            let user = document.querySelector("${FOUND_USER}"); //<
+            if(user) user.click();
+            else return false;
+
+
+            // ---- OPEN THE CHAT ----
+            let open_chat = document.querySelector("${OPEN_CHAT_BUTTON}"); //<
+            if(open_chat) open_chat.click();
+            else return false;
+
+            
+
+            return true;
+
+            } )();
+        `).then(res => {
+            this.add_log('success', `opened dm chat: ${user}`);
+            return res;
+        })
+        .catch(err => {
+            this.add_log('error', `Error opening dm chat: ${user}, ERR:${err}`);
+            return false;
+        });
+
+        if(!opened_chat){
+            this.add_log("error", "could not open the dm of the given user");
+            return false;
+        };                              
+
+    }
+
+    async write_dm(message){
+        let wrote = await this.account_window.webContents.executeJavaScript(`
+            
+            ( async () => {
+
+            await sleep(5000);
+
+            // ---- SEARCH USER ----
+            const set_comment = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+            const write_dm = (selector, value) => {
+                const textarea = document.querySelector(selector);
+                set_comment.call(textarea, value);
+                textarea.dispatchEvent(new Event('input', { bubbles: true}));
+            }
+
+            let selector = 'textarea';
+            if(!document.querySelector(selector)) return false;
+            write_dm(selector, '${message}');
+            return true;
+
+            } )();
+        `).then(res => {
+            this.add_log('success', `wrote dm: ${message}`);
+            return res;
+        })
+        .catch(err => {
+            this.add_log('error', `Error writing dm: ${message}, ERR: ${err}`);
+            return false;
+        });
+
+        if(!wrote){
+            this.add_log("error", "could not wrote the given dm");
+            return false;
+        };     
+    }
+
+    async send_dm(){
+
+        let submit = await this.account_window.webContents.executeJavaScript(`
+            ( async () => {
+                await sleep(1000);
+                let send = document.querySelector("${SUBMIT_BUTTON_DM}");
+                if(!send) return false;
+                else{
+                    send.click();
+                    return true;
+                }
+
+            })();
+        `).then(res => {
+            this.add_log('success', `dm sent`);
+            return res;
+        })
+        .catch(err => {
+            this.add_log('error', `Error sending dm: ${err}`);
+            return false;
+        });
+
+        if(!submit){
+            this.add_log("error", "could not send the dm");
+            return false;
+        };
+    }
+
+    /*
     @user: string ( the username of the profile )
     @info: manage the interaction with the profiles and the medias upload.
     @ps: recursive function, the main body of the bot.
@@ -1876,27 +2079,13 @@ class instabot {
             return;
         }
 
-        // Check if users has reched the max actions limit
-        if (this.followNoPost || this.followPrivate || this.followPublic) {
-            if (this.STATS[this.day]['follow'] > this.max_follow)
-                interact = false;
-        }
-        if (this.unfollow) {
-            if (this.STATS[this.day]['unfollow'] > this.max_unfollow)
-                interact = false;
-        }
-        if (this.leftComment) {
-            if (this.STATS[this.day]['likes'] > this.max_likes)
-                interact = false;
-        }
-        if (this.leftLike) {
-            if (this.STATS[this.day]['comments'] > this.max_comments)
-                interact = false;
-        }
-        if (!interact) {
-            this.add_log('warning', `All interactions have reached the limits, I'll keep posting medias ( if enabled )`);
-            show_warning("PROFILE: " + this.profile_name + " has reached tha maximum actions for days, i'll continue to post medias ( if enabled ) ");
-        }
+        if( ((this.leftMessage && this.STATS[this.day]['messages'] > this.max_messages) || !this.leftMessage) &&
+            ((this.leftLike && this.STATS[this.day]['comments'] > this.max_comments) || !this.leftLike) &&
+            ((this.leftComment && this.STATS[this.day]['likes'] > this.max_likes ) || !this.leftComment) &&
+            ((this.unfollow && this.STATS[this.day]['unfollow'] > this.max_unfollow) || !this.unfollow) &&
+            (((this.followNoPost || this.followPrivate || this.followPublic) && this.STATS[this.day]['follow'] > this.max_follow) || !(this.followNoPost || this.followPrivate || this.followPublic)) 
+        )  interact = false;
+        
         // Check if actions blocked
         await this.check_actions_blocked();
         if (this.blocked_actions) {
@@ -1919,12 +2108,18 @@ class instabot {
             this.add_log('error', `Error collecting images: ${e}`);
         }
 
+        if (!interact) {
+            this.add_log('warning', `All interactions have reached the limits, I'll keep posting medias ( if enabled )`);
+            show_warning("PROFILE: " + this.profile_name + " has reached tha maximum actions for days, i'll continue to post medias ( if enabled ) ");
+        }
+
         // Picking new user
         this.current_user = users.shift();
         this.add_log('success', `INTERACTIONS: ${this.current_user}`);
         if (!this.current_user) {
             interact = false;
         }
+
         // if have to interact it starts the interactions
         if (interact) {
 
@@ -1969,12 +2164,19 @@ class instabot {
                 } catch (e) {
                     this.add_log('error', `Error follow action: ${e}`);
                 }
+
                 try {
                     await this.unfollow_action();
                     await this.check_actions_blocked();
                 } catch (e) {
                     this.add_log('error', `Error unfollow action: ${e}`);
                 }
+                try {
+                    await this.auto_dm(this.current_user);
+                } catch (e) {
+                    this.add_log('error', `Error dm action: ${e}`);
+                }
+                
             } else {
                 this.interact_with(users);
                 return;

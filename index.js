@@ -86,6 +86,11 @@ datas = {
       "type": "c",
       "description": "check if you want to left likes under posts"
     },
+  "left_message":
+    {
+      "type": "c",
+      "description": "check if you want to send direct messages"
+    },
   "unfollow":
     {
       "type": "c",
@@ -115,7 +120,11 @@ datas = {
       "type": "at",
       "description": "comments that you want to left ( each comment is separate by '&' char ex: nice pic & wow amazin post & ecc..)"
     },
-  
+  "message":
+    {
+      "type": "at",
+      "description": "messages that you want to send ( each message is separate by '&' char ex: hello & Hy I'm marco & ecc..)"
+    },
   "delay":
     {
       "type": "n",
@@ -138,8 +147,7 @@ datas = {
   "random_time":
     {
       "type": "c",
-      "description": `check if you want to randomize the delay time between two interactions cycles. Based on the 'x' numbers of cycles that you want the the to
-                      do in the given 'y' hours. `
+      "description": `check if you want to randomize the delay time between two interactions cycles. If we call 'x' the delay that u gave the random time will be taken in the range [x/2, 2*x]`
     },
   "followed_range":
     {
@@ -150,12 +158,12 @@ datas = {
   "collect_following_time":
     {
       "type": "n",
-      "description": " the delay that the bot has for scrape your following list and find who unfollow(seconds)"
+      "description": " the delay that the bot has for scrape your following list and find who unfollow(seconds) [ 10 is enaugh usually ]"
     },
   "collect_to_follow_time":
     {
       "type": "n",
-      "description": " the delay that the bot has for collect the profiles with which interact (seconds)"
+      "description": " the delay that the bot has for collect the profiles with which interact (seconds) [ 10 is enaugh usually ]"
     },
   "INTERACTIONS LIMITS": 
     {
@@ -181,6 +189,12 @@ datas = {
       "type": "n",
       "description": "the max number of comments actions per day"
     },
+  "message_per_day":
+    {
+      "type": "n",
+      "description": "the max number of direct messages (dm) per day"
+    },
+  
   "IMAGES COLLECTOR": 
     {
         "type": "block"
