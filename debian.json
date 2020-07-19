@@ -1,0 +1,12 @@
+{
+  "dest": "release-builds/",
+  "productDescription": "An instagram bot... and more",
+  "icon": "icons/png/icon.png",
+  "maintainer": "linch1 linch1.123@outlook.com",
+  "categories": [
+    "Utility"
+  ],
+  "lintianOverrides": [
+    "changelog-file-missing-in-native-package"
+  ]
+}
