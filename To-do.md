@@ -4,5 +4,4 @@
 ## To do list 📝
 
 - Create documentation for the code.
-- Add auto-dm feature.
 - Implement dashboard functionalities.
