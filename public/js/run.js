@@ -23,9 +23,11 @@ const
     app = remote.app,
     BrowserWindow = remote.BrowserWindow,
     net = remote.net,
+    nativeImage   = remote.nativeImage,
     session = remote.session,
     mainWin = remote.getCurrentWindow(),
     request = require('request'),
+    path = require('path'),
     {
         IgApiClient,
         IgCheckpointError,
@@ -398,9 +400,14 @@ function createWindow(session_id, profile) {
     win = new BrowserWindow({
         width: width,
         height: height,
-        icon: 'public/img/logo.png',
         webPreferences: preferences,
     });
+
+    win.setIcon(
+        nativeImage.createFromPath(
+          path.join(__dirname, "/public/img/logo.png")
+        )
+      );
     win.setMenuBarVisibility(false);
     win.setResizable(true);
     ses = win.webContents.session;

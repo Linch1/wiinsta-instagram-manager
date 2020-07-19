@@ -1,14 +1,14 @@
 const remote        = require('electron'),
       app           = remote.app,
       BrowserWindow = remote.BrowserWindow,
+      nativeImage   = remote.nativeImage,
+
       fs            = require('fs'),
       mkdirp        = require('mkdirp'),
       ejse          = require('ejs-electron'),
       setupEvents   = require('./installers/setupEvents');
 
 const path = require('path');
-
-let win;
 
 //handle setupevents as quickly as possible
 if (setupEvents.handleSquirrelEvent()) {
@@ -306,6 +306,8 @@ datas = {
     }
 }
 
+let win;
+
 var DatasPath = app.getPath('userData') + '/';
 var folders = [
   DatasPath,
@@ -354,12 +356,16 @@ function createWindow () {
     width: 1200,
     height: 750,
     frame: false,
-
-    icon: 'icons/png/icon.png',
     webPreferences: {
       nodeIntegration: true,
     },
   });
+
+  win.setIcon(
+    nativeImage.createFromPath(
+      path.join(__dirname, "/icons/png/icon.png")
+    )
+  );
   //win.webContents.openDevTools();
   win.loadFile('views/index/home.ejs', datas); // test.js per le finestre con sessioni diversa
   win.setMenuBarVisibility(false);
