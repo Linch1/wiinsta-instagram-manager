@@ -103,7 +103,8 @@ datas = {
   "number_of_likes":
     {
       "type": "n",
-      "description": "the number of likes that you want to left on each account"
+      "description": "the number of likes that you want to left on each account",
+      "default": 1
     },
   "pages_for_porifle_collection":
     {
@@ -113,7 +114,8 @@ datas = {
   "number_of_comments":
     {
       "type": "n",
-      "description": "the number of comments that you want to left on each account"
+      "description": "the number of comments that you want to left on each account",
+      "default": 1
     },
   "comment":
     {
@@ -128,14 +130,16 @@ datas = {
   "delay":
     {
       "type": "n",
-      "description": "the delay that the bot has to wait between two interactions cycles (seconds)"
+      "description": "the delay that the bot has to wait between two interactions cycles (seconds)",
+      "default": 300
     },
   "start_unfollow":
     {
       "type": "n",
       "description": `number of accounts to be followed before the bot start to do 
                       the unfollow action( the bot unfollows only the accountd that it have followed previously ).
-                      Ex: if set to 50 this field, the bot will start to unfollow someone only once he has followed 50 profiles`
+                      Ex: if set to 50 this field, the bot will start to unfollow someone only once he has followed 50 profiles`,
+      "default": 100                
     },
   "random_actions":
     {
@@ -152,18 +156,20 @@ datas = {
   "followed_range":
     {
       "type": "nr",
-      "description": "it is a counter that keep trak of how many people the account has followed"
+      "description": "it is a counter that keep trak of how many people the account has followed ( not edit this )"
     },
  
   "collect_following_time":
     {
       "type": "n",
-      "description": " the delay that the bot has for scrape your following list and find who unfollow(seconds) [ 10 is enaugh usually ]"
+      "description": " the delay that the bot has for scrape your following list and find who unfollow(seconds) [ 10 is enaugh usually ]",
+      "default": 10
     },
   "collect_to_follow_time":
     {
       "type": "n",
-      "description": " the delay that the bot has for collect the profiles with which interact (seconds) [ 10 is enaugh usually ]"
+      "description": " the delay that the bot has for collect the profiles with which interact (seconds) [ 10 is enaugh usually ]",
+      "default": 10
     },
   "INTERACTIONS LIMITS": 
     {
@@ -172,27 +178,32 @@ datas = {
   "follow_per_day":
     {
       "type": "n",
-      "description": " the max number of follow actions per day "
+      "description": " the max number of follow actions per day ",
+      "default": 100
     },
   "likes_per_day":
     {
       "type": "n",
-      "description": "the max number of likes actions per day"
+      "description": "the max number of likes actions per day",
+      "default": 200
     },
   "unfollow_per_day":
     {
       "type": "n",
-      "description": "the max number of unfollow actions per day"
+      "description": "the max number of unfollow actions per day",
+      "default": 100
     },
   "comment_per_day":
     {
       "type": "n",
-      "description": "the max number of comments actions per day"
+      "description": "the max number of comments actions per day",
+      "default": 100
     },
   "message_per_day":
     {
       "type": "n",
-      "description": "the max number of direct messages (dm) per day"
+      "description": "the max number of direct messages (dm) per day",
+      "default": 100
     },
   
   "IMAGES COLLECTOR": 
@@ -212,7 +223,8 @@ datas = {
   "collect_images_delay":
   {
     "type": "n",
-    "description": "the delay between two images collections cicles ( in minutes -> 120 = 2 Hours)"
+    "description": "the delay between two images collections cicles ( in minutes -> 120 = 2 Hours)",
+    "default": 300
   },
   "collect_images_last_time":
   {
@@ -237,7 +249,8 @@ datas = {
   "random_post_delay":
   {
     "type": "n",
-    "description": " delay between two random posts ( in minutes -> 120 = 2 Hours) "
+    "description": " delay between two random posts ( in minutes -> 120 = 2 Hours) ",
+    "default": 180
   },
   "random_post_last_time":
   {
@@ -283,7 +296,8 @@ datas = {
   "random_story_delay":
     {
       "type": "n",
-      "description": "the delay between two random stories  ( in minutes -> 120 = 2 Hours)"
+      "description": "the delay between two random stories  ( in minutes -> 120 = 2 Hours)",
+      "default": 180
     },
   "random_story_last_time":
     {

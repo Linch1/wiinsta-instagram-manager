@@ -398,7 +398,7 @@ function createWindow(session_id, profile) {
     win = new BrowserWindow({
         width: width,
         height: height,
-        icon: 'public/img/icona.png',
+        icon: 'public/img/logo.png',
         webPreferences: preferences,
     });
     win.setMenuBarVisibility(false);

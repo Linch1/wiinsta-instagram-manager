@@ -46,7 +46,7 @@
     "macos-alias": "^0.2.11"
   },
   "devDependencies": {
-    "electron": "^6.1.5",
+    "electron": "^9.1.0",
     "electron-packager": "^14.2.1"
   },
   "repository": {

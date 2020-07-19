@@ -608,7 +608,12 @@ function send_inputs(){
 		} else if (type == 't') {
 			currentSettings[key] = field.val();
 		} else if (type == 'n') {
-			currentSettings[key] = parseInt(field.val());
+			let val = field.val();
+			if(!val){
+				if(settingsScheme[key]['default']) val = parseInt(settingsScheme[key]['default']);
+				else val = 0;
+			}
+			currentSettings[key] = val;
 		} else if (type == 'at') {
 			let values = field.val().split('&');
 			
