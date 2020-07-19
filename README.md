@@ -16,9 +16,9 @@
 ## 📎 Menu
 - 💡 [Features](#-features)
 - 💾 Installation:
-	- 👨‍💻 [Desktop App](https://github.com/Linch1/insta-bot-electron/blob/master/Installation.md) (Windows, Linux, Mac)
+	- 👨‍💻 [Desktop App](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Installation.md) (Windows, Linux, Mac)
 - :balloon: [Getting started](#balloon-getting-started)
-- 📝 [Documentation](https://github.com/Linch1/insta-bot-electron/blob/master/Documentation.md)
+- 📝 [Documentation](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Documentation.md)
 
 [![](https://img.shields.io/badge/buy%20me-coffee-4B788C.svg)](https://ko-fi.com/linch1)
 ![](https://img.shields.io/badge/bitcoin-1EyJ7niABw5L4LWvLj8M6bQCENjX8QCmNa-E38B29.svg) 
