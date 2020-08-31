@@ -20,13 +20,7 @@ Logic
 
 
 // * SOLVED *
-// - now it can send messages with apostrophe (  '  ).
-// - risolto problema che ogni volta che veniva triggerata la selezione di un profilo il callback era chiamato 7 volte,
-//   una volta per ogni dropdown menu presente
-// - gli ora vengono registrati correttamente
-// - gestire gli alert in modo che se si sovrappongono quello prima non viene cancellato. 
-//   Nell'ipotesi che appena installato il bot mostri sia il welcome message che un ipotetica notifica in coda.
-// - create una gestione di notifiche multiple.
+
 
 
 */
