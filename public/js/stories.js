@@ -64,14 +64,14 @@ function start(){
 		if(!is_valid_profile()) return;
 		let num = $("#random-stories-count").val();
 		if(!num || num == 0){
-			show_warning("write the number of stories to generate");
+			show_popup(getCurrentUser(), 'missing setting', getCurrentUserAvatarPath(), "write the number of stories to generate");
 			return;
 		}
 		let start_date = $("#random-stories-date").val();
 		let start_date_iso = new Date(start_date);
 		let start_date_ms = start_date_iso.getTime();
 		if(!is_numeric(start_date_ms)){
-			show_warning("select a valid date for start the generation of the stories");
+			show_popup(getCurrentUser(), 'missing setting', getCurrentUserAvatarPath(), "select a valid date for start the generation of the stories");
 			return;
 		}
 		let [profile, currentSettings, currentSettingsPath] = getCurrentUserDatas();
@@ -84,7 +84,7 @@ function start(){
 				let hashtags_ = currentSettings["hashtags"];
 				let [code, upload, type, owner, caption, random_hashtag] = get_posts_random_file(profile, hashtags_);
 				if(!upload) {
-					show_warning("Profile: " + selected_profile + " has alreasy used all the medias relative to its hashtags.");
+					show_popup(getCurrentUser(), 'empty valid media', getCurrentUserAvatarPath(), "this profile has alreasy used all the medias relative to its hashtags");
 					return;
 				};
 				
@@ -106,7 +106,7 @@ function start(){
 		let type = $("select.type").val().trim();
 		if (!is_page("stories")) return;
 		if(getCurrentUser() == "default"){
-			show_warning("select a profile");
+			show_popup('wiinsta', 'success', LOGO_PATH, "select a profile");
 		} else {
 			clear_stories_container();
 			populate_stories();
@@ -119,7 +119,7 @@ function start(){
 		write_file(getCurrentObject()["profile_fl"], JSON.stringify(getCurrentSettings()));
 		clear_stories_container();
 		populate_stories();
-		show_warning("All stories were correctly deleted")
+		show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "All stories were correctly deleted");
 	});
 
 }
@@ -131,14 +131,14 @@ function start(){
 */
 function save_story(post){
 	if(is_running()){
-		show_warning("The selected profile is currently running, stop it for create new scheduled medias.");
+		show_popup(getCurrentUser(), 'busy profile', getCurrentUserAvatarPath(), "The selected profile is currently running, stop it for create new scheduled medias");
 		return;
 	}
 	let [currentUser, currentSettings, currentSettingsPath] = getCurrentUserDatas();
 	let scheduled_stories = currentSettings["scheduled_stories"];
 
 	if(!post.attr("data-fileType")) {
-		show_warning("choose a photo/video to upload");
+		show_popup(getCurrentUser(), 'invalid media', getCurrentUserAvatarPath(), "choose a photo/video to upload");
 		return;
 	}
 
@@ -156,11 +156,11 @@ function save_story(post){
 	let date_ms = date.getTime();
 
 	if(!is_numeric(date_ms)){
-		show_warning("not a valid Date");
+		show_popup(getCurrentUser(), 'invalid date', getCurrentUserAvatarPath(), "not a valid Date");
 		return post;
 	}
 	if(!currentSettings){
-		show_warning("Select a profile");
+		show_popup('wiinsta', 'invalid profile', LOGO_PATH, "Select a profile");
 		return post;
 	}
 	
@@ -202,7 +202,7 @@ function save_story(post){
 	
 
 	write_file(currentSettingsPath, JSON.stringify(currentSettings));
-	show_warning("Story correctly saved");
+	show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "Story correctly saved");
 	return view_post(post);
 }
 

@@ -33,7 +33,7 @@ async function start(){
 	*/
 	$('.stop').click( evt => {
 		stop_bot();
-		show_warning("Bot stopped")
+		show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "Bot stopped");
 	});
 
 	/*
@@ -44,7 +44,7 @@ async function start(){
 		for (let i = 0; i < profiles.length; i++) {
 			stop_bot(profiles[i]);
 		}
-		show_warning("Bots stopped")
+		show_popup('wiinsta', 'success', LOGO_PATH, "Bots stopped");
 	});
 
 	/*
@@ -53,7 +53,7 @@ async function start(){
 	$('.clear-session').click( evt => {
 		if(!is_valid_profile()) return;
 		new instabot(getCurrentUser()).clear_partition();
-		show_warning("session of profile " + getCurrentUser() + " cleared")
+		show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "The session was cleared");
 	});
 
 	$("body").click( evt => {
@@ -61,18 +61,18 @@ async function start(){
 		let target = $(evt.target); // elemento cliccato
 
 		
-		if(target.closest('.alert-buttons .close').length){
+		if(target.closest('.alert .button.close').length){
 			/* @info: close the confirmation alert */
 			DELETING = false;
-			close_alert();
-		} else if(target.closest('.alert-buttons .confirm').length){
+			close_popup(target.closest('.alert'));
+		} else if(target.closest('.alert .button.confirm').length){
 			/* @info: delete the currentProfile */
 			if(DELETING);
 			DELETING = false;
 			if(!is_valid_profile()) return;
 			new instabot(getCurrentUser()).delete();
 			reset();
-			close_alert();
+			close_popup(target.closest('.alert'));
 		}
 	});
 	/*
@@ -81,7 +81,7 @@ async function start(){
 	$('.delete').click( evt => {
 		if(!is_valid_profile()) return;
 		DELETING = true;
-		show_warning_confirm("Are you sure to delete this profile?");
+		show_popup_choice(getCurrentUser(), 'warning', getCurrentUserAvatarPath(), "Are you sure to delete this profile?");
 	});
 	
 
@@ -96,7 +96,7 @@ async function start(){
 		let bot = getCurrentBot();
 		if( bot ) bot.reloadSettings();
 		reset();
-		show_warning("new settings saved")
+		show_popup_choice(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "new settings saved");
 	});
 
 	/*

@@ -10,7 +10,7 @@ function start(){
 		let type = $("select.type").val().trim();
 		if (!is_page("logs")) return;
 		if(!is_valid_profile()){
-			show_warning("select a profile");
+			show_popup('wiinsta', 'invalid profile', LOGO_PATH, "select a profile");
 			return;
 		}
 		clear_logs();

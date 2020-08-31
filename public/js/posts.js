@@ -9,7 +9,6 @@ function start(){
 		
 		if(is_page("posts")){
 			let target = $(evt.target); // elemento cliccato
-
 			// PER LE ALTRE AZIONI VEDI stories.js
 			if(delete_button_active && target[0] != delete_button_active[0]){
 				delete_button_active.removeClass("remove-alert");
@@ -69,18 +68,18 @@ function start(){
 
 		let num = $("#random-posts-count").val();
 		if(!num || num == 0){
-			show_warning("write the number of posts to generate");
+			show_popup(getCurrentUser(), 'missing setting', getCurrentUserAvatarPath(), "write the number of posts to generate");
 			return;
 		}
 		let start_date = $("#random-posts-date").val();
 		let start_date_iso = new Date(start_date);
 		let start_date_ms = start_date_iso.getTime();
 		if(!is_numeric(start_date_ms)){
-			show_warning("select a valid date for start the generation of the posts");
+			show_popup(getCurrentUser(), 'invalid date', getCurrentUserAvatarPath(), "select a valid date for start the generation of the posts");
 			return;
 		}
 		if(!getCurrentSettings()["random_post_delay"]){
-			show_warning("The selected profile has the field 'RANDOM POST DELAY' empty, this block the random generation, please insert a valid value.")
+			show_popup(getCurrentUser(), 'missing setting', getCurrentUserAvatarPath(), "The selected profile has the field 'RANDOM POST DELAY' empty, this block the random generation, please insert a valid value.");
 			return;
 		}
 		let num_days = $('#random-posts-days').val();
@@ -95,7 +94,7 @@ function start(){
 				let [code, upload, type, owner, caption, random_hashtag] = get_posts_random_file(profile, hashtags_);
 				console.log("caption: ", caption);
 				if(!upload) {
-					show_warning("Profile: " + selected_profile + " has alreasy used all the medias relative to its hashtags.");
+					show_popup(getCurrentUser(), 'empty medias', getCurrentUserAvatarPath(), "alreasy used all the medias relative to its hashtags");
 					return;
 				};
 				if(caption_type == 'random'){
@@ -105,7 +104,7 @@ function start(){
 				}
 				
 				if(!caption){
-					show_warning("could not found a valid caption, if you are using the 'random caption'  option fill the  'captions' field");
+					show_popup(getCurrentUser(), 'invalid caption', getCurrentUserAvatarPath(), "could not found a valid caption, if you are using the 'random caption'  option fill the  'captions' field");
 					return;
 				}
 				let post_obj = {
@@ -129,7 +128,7 @@ function start(){
 		let type = $("select.type").val().trim();
 		if (!is_page("posts")) return;
 		if(getCurrentUser() == "default"){
-			show_warning("select a profile");
+			show_popup('wiinsta', 'invalid profile', LOGO_PATH, "select a profile");
 		} else {
 			clear_posts_container();
 			populate_posts();
@@ -142,7 +141,7 @@ function start(){
 		write_file(getCurrentObject()["profile_fl"], JSON.stringify(getCurrentSettings()));
 		clear_posts_container();
 		populate_posts();
-		show_warning("All posts were correctly deleted")
+		show_popup('wiinsta', 'success', LOGO_PATH, "All posts were correctly deleted");
 	});
 
 }
@@ -153,7 +152,7 @@ function start(){
 */
 function save_post(post){
 	if(is_running()){
-		show_warning("The selected profile is currently running, stop it for create new scheduled medias.");
+		show_popup('wiinsta', 'busy profile', LOGO_PATH, "The selected profile is currently running, stop it for create new scheduled medias.");
 		return;
 	}
 	console.log("saving")
@@ -161,8 +160,8 @@ function save_post(post){
 	let captions_to_use = currentSettings["captions_to_use"];
 	let scheduled_posts = currentSettings["scheduled_posts"];
 	if(!post.attr("data-filePath")) {
-		show_warning("choose a photo/video to upload");
-		return;
+		show_popup(getCurrentUser(), 'invalid media', getCurrentUserAvatarPath(), "choose a photo/video to upload");
+		return post;
 	}
 
 	let id = post.attr("data-id"); // this returns "undefined" as string
@@ -178,15 +177,15 @@ function save_post(post){
 	let date = new Date(date_iso);
 	let date_ms = date.getTime();
 	if(caption == "") {
-		show_warning("not a valid caption");
+		show_popup(getCurrentUser(), 'invalid caption', getCurrentUserAvatarPath(), "not a valid caption");
 		return post;
 	}
 	if(!is_numeric(date_ms)){
-		show_warning("not a valid Date");
+		show_popup(getCurrentUser(), 'invalid date', getCurrentUserAvatarPath(), "not a valid Date");
 		return post;
 	}
 	if(!currentSettings){
-		show_warning("Select a profile");
+		show_popup('wiinsta', 'invalid profile', LOGO_PATH, "Select a profile");
 		return post;
 	}
 
@@ -239,7 +238,7 @@ function save_post(post){
 	}
 	console.log(scheduled_posts)
 	write_file(currentSettingsPath, JSON.stringify(currentSettings));
-	show_warning("Post correctly saved");
+	show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "Post correctly saved");
 	return view_post(post);
 }
 
@@ -253,7 +252,6 @@ function save_post(post){
 function create_post(date_ms, obj, id){
 	if(!is_valid_profile()) return;
 	console.log(obj)
-	console.log("POST: ", obj.file.path);
 	let post_parent = $(`
 <div class="medium-12 column">
   <div class="post" 

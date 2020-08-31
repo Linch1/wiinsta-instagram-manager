@@ -7,8 +7,27 @@ Logic
 /* TO DO *
 // -- ITA --
 // - aggiungere funzioni specifiche per inserire - eliminare immagini dai file ( come per used )
+
+// - after each cycle it return to the profile page. 
+//   if it sends auto dm it remains on the open chat for a while and it can read some messages so the user doesn't ghet the notify.
+
+// - unfolloware la gente direttamente dalla lista invece di fare la comparazione della lista con
+//   quelli che followa.
+
+// - quando il menu a tendina è chiuso se si clicca poco sotto i profili sono cambiati lo stesso
+
+// - aggiungere un pulsante per nascondere tutte le notifiche
+
+
+// * SOLVED *
+// - now it can send messages with apostrophe (  '  ).
+// - risolto problema che ogni volta che veniva triggerata la selezione di un profilo il callback era chiamato 7 volte,
+//   una volta per ogni dropdown menu presente
+// - gli ora vengono registrati correttamente
 // - gestire gli alert in modo che se si sovrappongono quello prima non viene cancellato. 
 //   Nell'ipotesi che appena installato il bot mostri sia il welcome message che un ipotetica notifica in coda.
+// - create una gestione di notifiche multiple.
+
 
 */
 
@@ -70,6 +89,8 @@ const
 "default_2": {"likes":0, "posts": 0, "following": 0, "followers": 0, "comments":0,"follow":0,"unfollow":0,"visited":0,"public":0,"private":0,"noPost":0}
  }`;
 
+const LOGO_PATH = '../../public/img/logo.jpg';
+
 /*
 Filter used in populate_form() [custom-functions.js] that manage which field
 of the forms display based on the page.
@@ -119,7 +140,8 @@ var SETTINGS;
         }
 
         $(document).ready(function() {
-            show_warning("error in loading bot internal settings, check your connection or restart the bot. Check any profile log for the error message.");
+            show_popup('wiinsta', 'Internal error', LOGO_PATH, 
+                "error in loading bot internal settings, check your connection or restart the bot. Check any profile log for the error message.");
         });
         
     });
@@ -198,8 +220,10 @@ var SETTINGS;
         /*
         Check if there are some notify to display
         */
-        window.addEventListener('load', () => { show_warning(SETTINGS["pushNotification"].notify) });
-        show_warning(SETTINGS["pushNotification"].notify);
+        window.addEventListener('load', () => { 
+            show_popup('wiinsta', 'notification', LOGO_PATH, SETTINGS["pushNotification"].notify); 
+        });
+        show_popup('wiinsta', 'notification', LOGO_PATH, SETTINGS["pushNotification"].notify);
         getShared()['last-notification-id'] = notify_id;
         write_file(SHARED_DATAS_FL, JSON.stringify(getShared()));
     }
@@ -207,7 +231,8 @@ var SETTINGS;
     let welcome = getShared()["welcome-message"];
     if(!welcome){
         $(document).ready(function() {
-            show_warning(SETTINGS["welcome-message"]);
+            show_popup('wiinsta', 'welcome', LOGO_PATH, SETTINGS["welcome-message"]);
+
             // to make sure that all custom settings are initialized correctly i call this 500ms after.
             // without it gives errors.
             setTimeout( () => {
@@ -222,7 +247,8 @@ var SETTINGS;
         Checck if it has to force the user to update
         */
         $(document).ready(function() {
-            show_warning(`the current version (${app.getVersion()}) of wiinsta it is no longer functional, please download the latest version: ` + SETTINGS["forceUpdate"].version);
+            show_popup('wiinsta', 'invalid version', LOGO_PATH, 
+                `the current version (${app.getVersion()}) of wiinsta it is no longer functional, please download the latest version: ` + SETTINGS["forceUpdate"].version);
             $('body').click(evt => {
                 let w = remote.getCurrentWindow();
                 w.close();
@@ -548,7 +574,7 @@ class instabot {
         this.randomStoryDelay = this.PROFILE['random_story_delay'] * 60 * 1000; // come input vuole minuti
         this.randomStoryLastTime = this.PROFILE['random_story_last_time'];
         this.scheduledStories = this.PROFILE['scheduled_stories'];
-
+        this.avatar = getAvatarPath(this.PROFILE['profile_avatar']);
         this.process_count = 0;
         this.followed_count = 0;
         this.unfollowed_count = 0;
@@ -661,8 +687,10 @@ class instabot {
         @info: does the api login and manage the display of the alert-box-input for the 2FA code
         */
     async ig_api_login() {
-            show_warning(`Bot for profile ${profile_name} is currently running [ wait for the login process to complete 15-20 s ]`)
- 
+
+            show_popup(this.profile_name, 'login', this.avatar, 
+                `Bot for profile ${profile_name} is currently running [ wait for the login process to complete 15-20 s ]`);
+            
             if (this.logged || !this.is_open()) {
      
                 return;
@@ -685,15 +713,10 @@ class instabot {
                     if (Object.keys(session).length == 0) {
                         throw new Error('Empty session');
                     }
-                    console.log("2")
                     const auth = await this.ig.state.deserialize();
-                    console.log("3")
                     await this.ig.user.info(this.ig.state.cookieUserId);
-                    console.log("4")
                     process.nextTick(async() => await this.ig.simulate.postLoginFlow());
-                    console.log("5")
                     shouldLogin = false;
-                    console.log(auth)
                     if (!auth) {
                         throw new Error('Undefined auth');
                     }
@@ -718,17 +741,18 @@ class instabot {
                         await this.ig.challenge.auto(true); // Requesting sms-code or click "It was me" button
                         // console.log(this.ig.state.checkpoint); // Challenge info here
                         while (!done) {
-                            show_warning_input("PROFILE: " + this.profile_name + "</br> Instagram has sent an sms with a code verification, insetr it here </br>");
+                            show_popup_input(this.profile_name, 'login', this.avatar, "Instagram has sent an sms with a code verification, insert it in the box");
+                            
                             let code = await get_alert_input();
                             // Use the code to finish the login process
                             await this.ig.challenge.sendSecurityCode(code)
                                 .then(res => {
                                     done = true;
-                                    show_warning(" Success ");
+                                    show_popup(this.profile_name, 'login', this.avatar, `Login done`);
                                     this.add_log("success", "IG API login done");
                                 })
                                 .catch(e => {
-                                    show_warning(' Error in API login: ', e);
+                                    show_popup(this.profile_name, 'login', this.avatar, `Error in API login: ${e}`);
                                     console.log(e);
                                     done = null;
                                 });
@@ -745,7 +769,7 @@ class instabot {
                         // Get the code
                         let done;
                         while (!done) {
-                            show_warning_input("PROFILE: " + this.profile_name + " </br> Insert the 2FA Auth code </br>");
+                            show_popup_input(this.profile_name, 'login', this.avatar, ` Insert the 2FA Auth code in the upper box`);
                             let code = await get_alert_input();
                             // Use the code to finish the login process
                             await this.ig.account.twoFactorLogin({
@@ -757,31 +781,29 @@ class instabot {
                                 })
                                 .then(res => {
                                     done = true;
-                                    show_warning(" Success ");
+                                    show_popup(this.profile_name, 'login', this.avatar, `Login done`);
                                     this.add_log("success", "IG API login done");
                                 })
                                 .catch(e => {
-                                    show_warning(' Error in API login: ', e);
+                                    show_popup(this.profile_name, 'login', this.avatar, `Error in API login: ${e}`);
                                     console.log(e);
                                     done = null;
                                 });
                         }
-                        show_warning(" Continuing login.. ");
-
                     })
                     .catch(IgLoginBadPasswordError, err => {
                         console.log("bad password", err);
-                        show_warning("The profile " + this.profile_name + " has a wrong password");
+                        show_popup(this.profile_name, 'login', this.avatar, `Wrong login password`);
                         this.add_log("error", "IG bad login password");
                     })
                     .catch(IgLoginInvalidUserError, err => {
-                        show_warning("The profile " + this.profile_name + " has a wrong username");
+                        show_popup(this.profile_name, 'login', this.avatar, `Wrong login username`);
                         this.add_log("error", "IG bad login user");
                     })
                     .catch(e => {
                         console.log('Could not resolve checkpoint:\n\n', e, "\n\n", e.stack);
                         let error = e.toString();
-                        show_warning('Error in API login: ', error);
+                        show_popup(this.profile_name, 'login', this.avatar, `Error in API login: ` + e);
                     });
 
             }
@@ -867,7 +889,7 @@ class instabot {
          
             return;
         }
-        show_warning("Instagram is requiring for two factor auth code PROFILE: " + this.profile_name);
+        show_popup(this.profile_name, 'login', this.avatar, `Instagram is requiring for two factor auth code in the profile opened window`);
         this.add_log("warning", "Browser sent 2FA Auth code ");
 
         let continue_ = false;
@@ -954,7 +976,7 @@ class instabot {
     */
     async likes_action() {
         
-        this.STATS[this.day]['public'] += 1;
+        this.STATS[this.day]['public'] ++;
         if (this.blocked_actions) {
             return;
         }
@@ -990,7 +1012,7 @@ class instabot {
 			send_likes()
 		`);
 
-        this.STATS[this.day]['likes'] += likes_to_left;
+        this.STATS[this.day]['likes'] = parseInt( this.STATS[this.day]['likes']) + parseInt(likes_to_left);
     }
 
     /*
@@ -1054,7 +1076,7 @@ class instabot {
 				send_comments()
 			`);
 
-            this.STATS[this.day]['comments'] += comments_to_left;
+            this.STATS[this.day]['comments'] = parseInt(this.STATS[this.day]['comments']) + parseInt(comments_to_left);
  
     }
     /*
@@ -1082,8 +1104,7 @@ class instabot {
 
             if (block) {
                 this.blocked_actions = true;
-
-                show_warning(`PROFILE:  ${this.profile_name}  Has the actions blocked, will try again in 6Hrs, meanwhile i'll continue To post medias ( if enabled )`);
+                show_popup(this.profile_name, 'actions block', this.avatar, `the actions are blocked, will try again in 6Hrs, meanwhile i'll continue To post medias ( if enabled )`);
                 this.add_log("error", `PROFILE:  ${this.profile_name}  Has the actions blocked, will try again in 6Hrs, meanwhile i'll continue To post medias ( if enabled )`);
                 this.PROFILE['blocked_actions_time'] = this.blocked_actions_time = now;
                 write_file(this.PROFILE_FL, JSON.stringify(this.PROFILE));
@@ -1135,7 +1156,7 @@ class instabot {
 			follow();
 		`);
 
-        this.STATS[this.day]['follow'] += 1;
+        this.STATS[this.day]['follow'] ++;
 
         this.PROFILE['followed_range'] = this.PROFILE['followed_range'] + 1;
         write_file(this.PROFILE_FL, JSON.stringify(this.PROFILE));
@@ -1321,7 +1342,7 @@ class instabot {
 					unfollow()
 				`)
                     .then(r => {
-                        this.STATS[this.day]['unfollow'] += 1;
+                        this.STATS[this.day]['unfollow'] ++;
                         this.PROFILE['followed_range'] = this.PROFILE['followed_range'] - 1;
 
                         to_unfollow.remove(following_user);
@@ -1636,7 +1657,8 @@ class instabot {
                 user_tags['in'].push(tag);
             }
         } catch (e) {
-            show_warning("PROFILE: " + this.profile_name + "Could not publish the post with its tags, some errors occured");
+            show_popup(this.profile_name, 'publication error', this.avatar, 'Could not publish the post with its tags, some errors occured');
+            
             this.add_log('error', `Error in building users tags ${e}`);
 
         }
@@ -1666,7 +1688,8 @@ class instabot {
                     return res;
                 })
                 .catch(err => {
-                    show_warning("PROFILE: " + this.profile_name + "Could not publish the post video: " + upload);
+                    show_popup(this.profile_name, 'publication error', this.avatar, "Could not publish the post video: " + upload);
+                    
                     this.add_log('error', `Erro Post video: ${err}`);
                 });
             console.log(publishResult);
@@ -1686,7 +1709,7 @@ class instabot {
                     return res;
                 })
                 .catch(err => {
-                    show_warning("PROFILE: " + this.profile_name + "Could not publish the post image: " + upload);
+                    show_popup(this.profile_name, 'publication error', this.avatar, "Could not publish the post image: " + upload);
                     this.add_log('error', `Erro Post Image: ${err}`);
                 });
         }
@@ -1839,7 +1862,7 @@ class instabot {
                 .then(res => { this.add_log('success', `Uploaded Story video ${upload}`); return res; })
                 .catch(err => {
                     this.add_log('error', `Erro story video: ${err}`);
-                    show_warning("PROFILE: " + this.profile_name + ", Could not publish the story video");
+                    show_popup(this.profile_name, 'publication error', this.avatar, "Could not publish the story video");
                 });
 
         } else if (file_type == "image") {
@@ -1857,7 +1880,7 @@ class instabot {
                 .then(res => { this.add_log('success', `Uploaded Story image ${upload}`); return res; })
                 .catch(err => {
                     this.add_log('error', `Erro story image: ${err}`);
-                    show_warning("PROFILE: " + this.profile_name + ",Could not publish the story image");
+                    show_popup(this.profile_name, 'publication error', this.avatar, "Could not publish the story image");
                 });
 
         }
@@ -2014,7 +2037,7 @@ class instabot {
 
             let selector = 'textarea';
             if(!document.querySelector(selector)) return false;
-            write_dm(selector, '${message}');
+            write_dm(selector, "${message}");
             return true;
 
             } )();
@@ -2074,7 +2097,7 @@ class instabot {
             // console.log(this, this.account_window, !this.account_window);
             if (this.account_window) console.log(this.account_window.isDestroyed());
             this.add_log('error', `Window: ${this.account_window ? true: false}, Breaking interactions. Bot is closed`);
-            // show_warning(`PROFILE: ${this.profile_name}, Please restart the bot`);
+            //show_popup(this.profile_name, 'error', this.avatar, "please restart the bot");
             return;
         }
 
@@ -2117,7 +2140,7 @@ class instabot {
 
         if (!interact) {
             this.add_log('warning', `All interactions have reached the limits, I'll keep posting medias ( if enabled )`);
-            show_warning("PROFILE: " + this.profile_name + " has reached tha maximum actions for days, i'll continue to post medias ( if enabled ) ");
+            show_popup(this.profile_name, 'interactions limit', this.avatar, "reached tha maximum actions for the day, i'll continue to post medias ( if enabled ) ");
         }
 
         // Picking new user
@@ -2130,7 +2153,7 @@ class instabot {
         // if have to interact it starts the interactions
         if (interact) {
 
-            this.STATS[this.day]['visited'] += 1;
+            this.STATS[this.day]['visited'] ++;
             write_file(this.TO_FOLLOW_FL, JSON.stringify(this.profiles));
 
             try {
@@ -2144,9 +2167,9 @@ class instabot {
             await this.define_sleep();
             let profile_type = await this.check_user_type()
             if (profile_type == 'private') {
-                this.STATS[this.day]['private'] += 1;
+                this.STATS[this.day]['private'] ++;
             } else if (profile_type == 'noPost') {
-                this.STATS[this.day]['noPost'] += 1;
+                this.STATS[this.day]['noPost'] ++;
             } else if (profile_type == 'public') {
                 try {
                     await this.list_posts();
@@ -2240,20 +2263,6 @@ class instabot {
         write_file(this.STATS_FL, JSON.stringify(this.STATS));
     }
 
-    // account_status(){
-    // 	if(!WHITELIST) {
-    // 		show_warning(`Something went wrong by 
-    // 			retriving the activated users. wait 1 minute and try again. 
-    // 			If the error persists view the issues page at 
-    // 			<strong> https://github.com/Linch1/insta-bot-electron/issues </strong>`);
-    // 		return null;
-    // 	}
-    // 	if(!WHITELIST.includes(this.username)){
-    // 		return null;
-    // 	}
-    // 	this.allowed = true;
-    // }
-
     /*
     @info: does the login and collect the profile stats
     @return:
@@ -2270,12 +2279,6 @@ class instabot {
         @info: start the bot and start the interactions
         */
     async run() {
-        // if(!this.allowed) {
-        // 	show_warning(this.profile_name + ` Account not activated. Visit
-        // 		<strong>https://github.com/Linch1/insta-bot-electron</strong> 
-        // 		for know more about it`);
-        // 	return;
-        // }
         let status = await this.setup();
         if (!status) return;
         this.profiles = ProfilesDatas[this.profile_name]["toFollow"];

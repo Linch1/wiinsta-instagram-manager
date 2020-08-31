@@ -6,7 +6,7 @@ function start(){
 		if ( !is_valid_profile() ) return;
 
 		if(!fs.existsSync(getCurrentObject()["profile_fl"])){
-			show_warning("SELECTED USER DOESN'T EXISTS ");
+			show_popup('wiinsta', 'profile not found', LOGO_PATH, "Selected user doesn't exists");
 			return;
 		}
 
@@ -26,18 +26,17 @@ function start(){
 		let profile = getCurrentUser();
 		
 		if(profile == "test"){
-			show_warning("Select a valid profile");
+			show_popup('wiinsta', 'invalid profile', LOGO_PATH, "Select a valid profile");
 			return;
 		}
 		if(getCurrentBot()){
-			show_warning("selected profile is already logged or it's currently logging");
+			show_popup('wiinsta', 'busy profile', LOGO_PATH, "Selected profile is already logged or it's currently logging");
 			return;
 		}
-		show_warning("Logging ...");
 		let bot = new instabot(profile);
 		setCurrentBot(bot);
 		await bot.ig_api_login();
-		show_warning("Succesfully logged");
+		show_popup('wiinsta', 'login', LOGO_PATH, "Succes login");
 	});
 
 	$('#profile-name').keyup( evt => {

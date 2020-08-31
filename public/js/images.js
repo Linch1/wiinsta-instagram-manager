@@ -15,7 +15,7 @@ function start(){
 			if(local){
 				if(exists_file(url)){
 					remove_file(url);
-					show_warning(`element succesfully deleted`);
+					show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "element succesfully deleted");
 				}
 				return;
 			}
@@ -32,21 +32,21 @@ function start(){
 			delete collection[type][url];
 			collection['count'] --;
 			write_file(path, JSON.stringify(collection));
-			show_warning(`element succesfully deleted`);
+			show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "element succesfully deleted");
 
 		}
 
 		if (target.hasClass('restore-image')){
-			show_warning('restoring selected media');
+			show_popup(getCurrentUser(), 'restoring', getCurrentUserAvatarPath(), "restoring selected media");
 			let url = target.data('url');
 			let hashtag = target.data('hashtag');
 			let type = target.data('type');
 			let code = target.data('code');
 			let media = await restoreMedia(code, url, type, hashtag);
 
-			if(!media) show_warning(`element could not be restored`);
-			else if ( media == "apiNotLogged") show_warning(" Profile instagram api is not logged, for login go to profiles -> click the login api action in the actions bar.")
-			else show_warning(`element succesfully restored`);
+			if(!media) show_popup(getCurrentUser(), 'restore fail', getCurrentUserAvatarPath(), "element could not be restored");
+			else if ( media == "apiNotLogged") show_popup(getCurrentUser(), 'api login', getCurrentUserAvatarPath(), "Profile instagram api is not logged, for login go to profiles -> click the login api action in the actions bar");
+			else show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "element succesfully restored");
 		
 			populate_images(type, getCurrentSettings());
 			
@@ -184,7 +184,7 @@ function get_contents(type, hashtags){
 		}
 	}
 	if(contents["image"].length == 0 && contents["video"].length == 0){
-		show_warning("PROFILE: " + getCurrentUser() + " has no images");
+		show_popup(getCurrentUser(), 'empty medias', getCurrentUserAvatarPath(), "no images found");
 		return;
 	}
 	return contents;
@@ -222,8 +222,7 @@ function clear_saved_images(hashtags){
 	} else {
 		write_file(getCurrentUsedFilePath(), USED_FL_DEFAULT_CONTENT);
 	}
-	
-	show_warning("Done, images deleted");
+	show_popup(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "images deleted");
 }
 
 /*

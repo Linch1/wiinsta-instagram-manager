@@ -1,3 +1,4 @@
 node_modules/
 datas/
 release-builds/
+.gitignore

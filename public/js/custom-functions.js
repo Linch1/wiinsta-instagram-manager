@@ -353,7 +353,15 @@ function getCurrentUserDatas(){
 	}
 	return [currentProfile, ProfilesDatas[currentProfile]["profile"], getCurrentObject()["profile_fl"]]
 }
-
+function getUserAvatarPath(user){
+	return getAvatarPath(getProfileSettings(user)["profile_avatar"]);
+}
+function getCurrentUserAvatar(){
+	return getProfileSettings(getCurrentUser())["profile_avatar"];
+}
+function getCurrentUserAvatarPath(){
+	return getAvatarPath(getProfileSettings(getCurrentUser())["profile_avatar"]);
+}
 /*
 @info: get the name of all saved profiles
 @return: array of string ( contains the profiles names )
@@ -696,7 +704,7 @@ function run_bot(profile){
 	if ( profile == 'test' ) return;
 	if(getProfileBot(profile)){
 		if(is_running(profile)){
-			show_warning(`The profile ${profile} is busy with other active tasks, stop them and run it again`);
+			show_popup(profile, 'profile busy', getUserAvatarPath(profile), "This profile is busy with other active tasks, stop them and run it again");
 		} else {
 			getProfileBot(profile).run();
 			setProfileBotStatus(profile); // set the dashboard status
@@ -797,7 +805,7 @@ function random_caption(captions){
 */
 function is_valid_profile(){
 	if(!getCurrentUser() || getCurrentUser() == "default"){
-		show_warning("Select a profile ");
+		show_popup('wiinsta', 'invalid profile', LOGO_PATH, "Select a profile");
 		return false;
 	}
 	return true;
@@ -901,7 +909,7 @@ function delete_post(post, obj){
 	write_file(currentSettingsPath, JSON.stringify(currentSettings));
 
 	post.remove();
-	show_warning("succesfully deleted element");
+	show_popup(getCurrentUser(), 'invalid caption', getCurrentUserAvatarPath(), "succesfully deleted element");
 	if(is_page("posts")){
 		clear_posts_container();
 		populate_posts();
@@ -1070,7 +1078,7 @@ function draw_stats(){
 	let [currentUser, currentSettings, currentSettingsPath] = getCurrentUserDatas();
 	let path = getCurrentObject()["stats_fl"];
 	if(!exists_file(path)){
-		show_warning("PROFILE: " + currentUser + " has no stats to show ");
+		show_popup(getCurrentUser(), 'empty stats', getCurrentUserAvatarPath(), "This profile have no stats to show");
 		return;
 	}
 
@@ -1078,7 +1086,7 @@ function draw_stats(){
 
 	let keys = Object.keys(global_stats);	// get the stats days
 	if( keys.length <= 1 ) {
-		show_warning("PROFILE: " + currentUser + " Have too few datas to show its stats");
+		show_popup(getCurrentUser(), 'few datas', getCurrentUserAvatarPath(), "This profile have too few datas to show its stats");
 		return;
 	};
 	init_charts({
@@ -1117,22 +1125,26 @@ function draw_stats(){
 	    }
 	}
 
+	console.log(datas)
 	// populate the 'days' array and the 'datas' object with the 'global_stats' informations
 	for ([day, stats] of Object.entries(global_stats)){
 		days.push(day);
+
 		for ([stat, value] of Object.entries(stats)){
 
 			if(NO_RENDER_GRAPHS.includes(stat)) continue;
 			if(!datas[stat]) datas[stat] = [];
 			datas[stat].push(value);
+			console.log(stat, datas[stat])
 		}
 	}
+	console.log(datas)
 
 	// if there are more than 4 days it removes the default values
 	if(keys.length >= 4){
 		days.splice(0, 2);
 		for ([stat, values] of Object.entries(datas)){
-			values.splice(0, 2);
+			if(values >= 4 ) values.splice(0, 2);
 		}
 	}
 	else days = ["", ""];
@@ -1202,7 +1214,7 @@ function populate_logs(filter){
 	let [currentUser, currentSettings, currentSettingsPath] = getCurrentUserDatas();
 	let logs_path = getCurrentObject()["logs_fl"];
 	if(!exists_file(logs_path)){
-		show_warning("PROFILE: " + getCurrentUser() + " has no logs");
+		show_popup(getCurrentUser(), 'no logs', getCurrentUserAvatarPath(), "No logs found");
 		return;
 	}
 	let parent = $('.logs-container');

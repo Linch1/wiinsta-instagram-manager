@@ -48,7 +48,7 @@ function collect_images(profile){
             await bot.ig_api_login();
             images_collector(profile, hashtags);
         })();
-        show_warning('The image collector will start soon');
+        show_popup(profile, 'processing', getUserAvatarPath(profile), "The image collector will start soon");
     }
     
 }
@@ -58,7 +58,7 @@ function collect_images(profile){
 @sources: the list that contains the hashtags/profiles
 */
 async function images_collector(profile, sources) {
-    show_warning(`PROFILE: ${profile} collecting images`)
+    show_popup(profile, 'working', getUserAvatarPath(profile), "collecting images");
     let hashtags = [];
     let users = [];
     let tiktok = [];
@@ -71,7 +71,7 @@ async function images_collector(profile, sources) {
     await collect_user_posts(profile, users);
     await collect_hashtags(profile, hashtags);
 
-    if(getProfileBot(profile).is_open()) show_warning(`PROFILE: ${profile} images collected`);
+    if(getProfileBot(profile).is_open()) show_popup(profile, 'success', getUserAvatarPath(profile), "images collected");
 }
 /*
 @users: array of strings
@@ -624,7 +624,7 @@ function download(code, uri, type, filename, hashtag){
                         else resolve(null);
                     } 
                 } catch(e) {
-                    show_warning("Error in restoring post: " + uri + ", of: " + hashtag);
+                    show_popup(getCurrentUser(), 'restore fail', getCurrentUserAvatarPath(), "Error in restoring post: " + uri + ", of: " + hashtag);
                 }
             }
             else resolve(uri);
@@ -764,7 +764,8 @@ function random_file_to_upload(profile, hashtags_){
                     continue_ = false;
                     if(!upload.endsWith(".jpg")){
                         console.log("not valid");
-                        show_warning(`found a non jpg file in ${localPath}: ${upload}. Please convert it to jpg`);
+                        show_popup(profile, 'file error', getUserAvatarPath(profile), `found a non jpg file in ${localPath}: ${upload}. Please convert it to jpg`);
+                        
                         continue_ = true;
                     }
                 } else if (is_video(upload)){
@@ -772,7 +773,8 @@ function random_file_to_upload(profile, hashtags_){
                     continue_ = false;
                     if(!upload.endsWith(".mp4")){
                         console.log("not valid");
-                        show_warning(`found a non mp4 file in ${localPath}: ${upload}. Please convert it to mp4`);
+                        show_popup(profile, 'file error', getUserAvatarPath(profile), `found a non mp4 file in ${localPath}: ${upload}. Please convert it to mp4`);
+
                         continue_ = true;
                     }
                 }
@@ -830,6 +832,6 @@ function random_file_to_upload(profile, hashtags_){
         return [code, upload, file_type, owner, caption, random_hashtag]; //////////////////  <------
 
     } while(hashtags.length > 0);
-    show_warning(" no valid posts found, maybe you have already used all of them.");
+    show_popup(profile, 'empty valid medias', getUserAvatarPath(profile), `no valid posts found, maybe you have already used all of them`);
     return [null];
 }
