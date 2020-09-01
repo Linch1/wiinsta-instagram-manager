@@ -1,13 +1,13 @@
 # 💾 Desktop Installation
 ## 💻 Windows 10
-1. Download [WiinstaInstaller.exe](https://github.com/Linch1/insta-bot-electron/releases) file.
+1. Download [WiinstaInstaller.exe](https://github.com/Linch1/wiinsta-instagram-manager/releases) file.
 4. Run the file by double-clicking on it.
 3. If you get smart screen error, click on `more info...`
 4. Click on `run anyway` button
 5. App has started. Don't forget to Left a :star: .
 
 ## 🍎 Mac OS (Apple)
-1. Download [wiinsta.dmg](https://github.com/Linch1/insta-bot-electron/releases).
+1. Download [wiinsta.dmg](https://github.com/Linch1/wiinsta-instagram-manager/releases).
 2. Open with double click
 3. If it gives some problems in the download, allow it by doing:
   - 3.a
@@ -22,7 +22,7 @@
 5. App has started. Don't forget to Left a :star:.
 
 ## 🐧 Linux (Debian/Ubuntu)
-1. Download [wiinsta.deb](https://github.com/Linch1/insta-bot-electron/releases)
+1. Download [wiinsta.deb](https://github.com/Linch1/wiinsta-instagram-manager/releases)
 2. Double click and install
 3. Find wiinsta in Gnome menu, open and App started. Don't forget to Left a :star:.
 
