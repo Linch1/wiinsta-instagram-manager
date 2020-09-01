@@ -683,7 +683,7 @@ class instabot {
     async ig_api_login() {
 
             show_popup(this.profile_name, 'login', this.avatar, 
-                `Bot for profile ${profile_name} is currently running [ wait for the login process to complete 15-20 s ]`);
+                `Bot is currently running [ wait for the login process to complete 15-20 s ]`);
             
             if (this.logged || !this.is_open()) {
      
