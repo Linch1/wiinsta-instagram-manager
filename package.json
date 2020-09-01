@@ -1,6 +1,6 @@
 {
   "name": "wiinsta",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "An instagram tool that lets you create automatic tasks for manage in the easiest and fastest way you instagram page.",
   "main": "index.js",
   "homepage": "https://github.com/Linch1/wiinsta-instagram-manager#readme",
