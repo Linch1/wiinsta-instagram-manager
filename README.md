@@ -60,9 +60,9 @@
 * [✔️] Bot Usage and I.g Profile Stats
 
 ## 👨‍💻 Desktop setup (GUI)
-1. Download [Wiinsta](https://github.com/Linch1/insta-bot-electron/blob/master/Installation.md) GUI.
+1. Download [Wiinsta](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Installation.md) GUI.
 2. Run the application.
-3. Follow the [Installation Guide](https://github.com/Linch1/insta-bot-electron/blob/master/Installation.md) (Windows, Linux, Mac) and if it works add a star 🌟 at this project ❤️
+3. Follow the [Installation Guide](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Installation.md) (Windows, Linux, Mac) and if it works add a star 🌟 at this project ❤️
 5. Join the [Discord community](https://discord.gg/sp34Aav) for add the accounts to the whitelist
 4. If you want to help me: **donate on [paypal](https://paypal.me/linch1)/[ko-fi](https://ko-fi.com/linch1)**
 
@@ -75,7 +75,7 @@
 2. Open the Profiles page.
 3. Write the username of the new profile in the **create new profile** field.
 4. Fill the other fields and click the **send edits** button in the **actions bar**.
-	- You don't know what the fields do? check the 📝 [Documentation](https://github.com/Linch1/insta-bot-electron/blob/master/Documentation.md) or **hover** the mouse on **them**, the little tooltip will be helpfull.
+	- You don't know what the fields do? check the 📝 [Documentation](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Documentation.md) or **hover** the mouse on **them**, the little tooltip will be helpfull.
 5. Now your new account has been created.
 6. Select it from the **select profile** field.
 7. Click the run button in the **actions bar**.
