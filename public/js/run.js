@@ -11,7 +11,9 @@ Logic
 // - unfolloware la gente direttamente dalla lista invece di fare la comparazione della lista con
 //   quelli che followa.
 
-// - quando il menu a tendina è chiuso se si clicca poco sotto i profili sono cambiati lo stesso
+// - quando il menu a tendina è chiuso ( solo per la prima volta, 
+// - dopo che viene selezionato un profilo non lo fa ( lo ho risolto ) )
+// - se si clicca poco sotto i profili sono cambiati lo stesso
 
 // - aggiungere un pulsante per nascondere tutte le notifiche
 
