@@ -78,6 +78,11 @@
 	width: 240px;
 }
 
+.alert .body .content .external-link{
+	font-weight: 700;
+	cursor: pointer;
+}
+
 .alert .body .content::-webkit-scrollbar {
   width: 5px;
 }

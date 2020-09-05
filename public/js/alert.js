@@ -40,13 +40,21 @@ function build_popup(settings){
 		`);
 		body.append(choice);
 	} if ( settings.content ){
+
 		let content = $(`
-		<div class="content">
-			${settings.content}
-		</div>
+		<div class="content"></div>
 		`);
+		
+		let lista = settings.content.split("$/link/");
+		for(let i = 0; i < lista.length; i ++){
+			let current = lista[i];
+			if(current.startsWith("http")) content.append($(`<span class="external-link">${current}</span>`));
+			else content.append($(`<span>${current}</span>`));
+		}
+		
 		body.append(content);
 	}
+	
 	return popup;
 }
 
@@ -104,26 +112,19 @@ function close_popup(popup){ // da rimuovere
 }
 
 function start(){
+
 	// show_popup_choice('wiinsta', 'test title', '../../public/img/avatars/8.png', `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	// 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 	// 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	// 					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	// 					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	// 					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
+	// 					consequat. $/link/https://google.com$/link/`);
 
-	// show_popup_input('wiinsta', 'test title', '../../public/img/avatars/8.png', `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	// 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	// 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	// 					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	// 					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	// 					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
+	//  show_popup_input('wiinsta', 'test title', '../../public/img/avatars/8.png', `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	//  					tempor incididunt ut labore et dolore magna aliqua. $/link/https://google.com$/link/`);
 
 	// show_popup('wiinsta', 'test title', '../../public/img/avatars/8.png', `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	// 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 	// 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	// 					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	// 					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	// 					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
+	// 					consequat. $/link/https://google.com$/link/`);
 
 
 	
@@ -136,6 +137,7 @@ function start(){
 	the user can insert the code
 	*/
 	$('body').click( e => {
+
 		let target = $(e.target);
 		// Close the alert from the right-upper cross
 		if (target.parent().is(".alert .remove")){
@@ -150,6 +152,10 @@ function start(){
 				let popup = $(target).closest('.alert');
 				close_popup(popup);
 			}
+		}
+
+		if ( target.is(".external-link")){
+			open(target.text());
 		}
 	});
 }

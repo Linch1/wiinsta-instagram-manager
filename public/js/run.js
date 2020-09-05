@@ -8,9 +8,6 @@ Logic
 // -- ITA --
 // - aggiungere funzioni specifiche per inserire - eliminare immagini dai file ( come per used )
 
-// - after each cycle it return to the profile page. 
-//   if it sends auto dm it remains on the open chat for a while and it can read some messages so the user doesn't ghet the notify.
-
 // - unfolloware la gente direttamente dalla lista invece di fare la comparazione della lista con
 //   quelli che followa.
 
@@ -2209,6 +2206,7 @@ class instabot {
             users.unshift(this.current_user);
         }
 
+        await this.visit_user(this.username);
         write_file(this.STATS_FL, JSON.stringify(this.STATS));
         let end_time = Date.now();
         let process_time = (end_time - start_time) / 1000;
