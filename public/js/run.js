@@ -143,7 +143,7 @@ var SETTINGS;
     Load selectors from external url
     */
     SETTINGS = JSON.parse(SETTINGS);
-    console.log("SETTINGS: ", SETTINGS)
+    
     INSTAGRAM_LOGIN = SETTINGS["selectors"]["INSTAGRAM_LOGIN"];
     INSTAGRAM_BASE = SETTINGS["selectors"]["INSTAGRAM_BASE"];
 

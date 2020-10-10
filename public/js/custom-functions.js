@@ -1125,7 +1125,7 @@ function draw_stats(){
 	    }
 	}
 
-	console.log(datas)
+	//console.log(datas)
 	// populate the 'days' array and the 'datas' object with the 'global_stats' informations
 	for ([day, stats] of Object.entries(global_stats)){
 		days.push(day);
@@ -1135,10 +1135,10 @@ function draw_stats(){
 			if(NO_RENDER_GRAPHS.includes(stat)) continue;
 			if(!datas[stat]) datas[stat] = [];
 			datas[stat].push(value);
-			console.log(stat, datas[stat])
+			// console.log(stat, datas[stat])
 		}
 	}
-	console.log(datas)
+	// console.log(datas)
 
 	// if there are more than 4 days it removes the default values
 	if(keys.length >= 4){
@@ -1248,7 +1248,7 @@ function clear_logs(){
 
 function random_avatar(){
 	let avatars = get_files_and_folders(app.getAppPath() + '/' + AVATARS_FOLDER); // get_files() return errors. without app.getAppPath() it gives also errors.
-	let randomAvatar = String(randomRange(1, avatars.length)) + '.png';
+	let randomAvatar = String(randomRange(1, 9)) + '.png';
 	return randomAvatar;
 }
 

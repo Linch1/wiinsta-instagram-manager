@@ -4,9 +4,7 @@ window.addEventListener('load', start);
 function build_popup(settings){
 	let popup = $(`
 		<div class="alert">
-			<div class="remove">
-				<i class="fas fa-times"></i>
-			</div>
+			<div class="remove"></div>
 		
 			<div class="body">
 				<div class="profile">${settings.profile}</div>
@@ -27,7 +25,7 @@ function build_popup(settings){
 		let input = $(`
 			<div class="form">
 				<input type="number" id="warning_input" >
-				<i id="warning_input_send" class="fas fa-share"></i>
+				<div id="warning_input_send"></div>
 			</div>
 		`);
 		body.append(input);
@@ -118,8 +116,8 @@ function start(){
 	// 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 	// 					consequat. $/link/https://google.com$/link/`);
 
-	//  show_popup_input('wiinsta', 'test title', '../../public/img/avatars/8.png', `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	//  					tempor incididunt ut labore et dolore magna aliqua. $/link/https://google.com$/link/`);
+	  show_popup_input('wiinsta', 'test title', '../../public/img/avatars/8.png', `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	  					tempor incididunt ut labore et dolore magna aliqua. $/link/https://google.com$/link/`);
 
 	// show_popup('wiinsta', 'test title', '../../public/img/avatars/8.png', `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	// 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -140,7 +138,7 @@ function start(){
 
 		let target = $(e.target);
 		// Close the alert from the right-upper cross
-		if (target.parent().is(".alert .remove")){
+		if (target.is(".alert .remove")){
 			let parent = $(e.target).closest('.alert');
 			close_popup(parent);
 		} 

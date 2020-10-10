@@ -143,10 +143,17 @@ img {
 	z-index: 99;
 	font-size: 30px;
 	color: blue;
+	width: 25px;
+	height: 25px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
 }
 .slick-prev{
 	left: 20px;
+	background-image: url("../img/arrow-left.png");
 }
 .slick-next{
 	right: 20px;
+	background-image: url("../img/arrow-right.png");
 }

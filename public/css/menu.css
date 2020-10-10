@@ -9,7 +9,15 @@
 
 .title-bar .left-off-canvas-toggle{
 	font-size: 25px;
-	padding-left: 1rem;
+	margin-left: 1rem;
+
+	width: 20px;
+	height: 20px;
+	display: block;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	background-image: url("../img/menu.png");
 }
 .title-bar .dragger{
 	width: 100vw;

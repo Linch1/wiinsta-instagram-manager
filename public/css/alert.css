@@ -94,6 +94,12 @@
 	font-size: 15px;
 	color: black;
 	cursor: pointer;
+	width: 15px;
+	height: 15px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	background-image: url("../img/cross.png");
 }
 
 .alert .form{
@@ -101,6 +107,17 @@
 	width: 200px;
 	align-items: flex-start;
 	justify-content: space-around;
+}
+
+.alert .form #warning_input_send{
+	cursor: pointer;
+	margin-left: 1rem;
+	width: 60px;
+	height: 35px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	background-image: url("../img/send.png");
 }
 
 .alert .form input[type="number"]{
