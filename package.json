@@ -10,11 +10,13 @@
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=icons/mac/icon.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . wiinsta --overwrite --asar --platform=win32 --arch=ia32 --icon=icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Wiinsta\"",
     "package-linux": "electron-packager . wiinsta --overwrite --asar --platform=linux --arch=x64 --icon=icons/png/icon.png --prune=true --out=release-builds",
-    "create-installer-mac": "electron-installer-dmg ./release-builds/wiinsta-darwin-x64/wiinsta.app wiinsta --out=release-builds --overwrite --icon=icons/mac/icon.icns",
+    "package-rasbperry": "electron-packager . wiinsta --overwrite --asar --platform=linux --arch=armv7l --icon=icons/png/icon.png --prune=true --out=release-builds",    "create-installer-mac": "electron-installer-dmg ./release-builds/wiinsta-darwin-x64/wiinsta.app wiinsta --out=release-builds --overwrite --icon=icons/mac/icon.icns",
     "create-debian-installer": "electron-installer-debian --src release-builds/wiinsta-linux-x64/ --arch amd64 --config debian.json",
+    "create-rasbpian-installer": "electron-installer-debian --src release-builds/wiinsta-linux-armv7l/ --arch armv7l --config debian.json",
     "create-installer-win": "node installers/windows/createinstaller.js"
   },
   "dependencies": {
+    "ajv": "^6.12.6",
     "assert": "^2.0.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",

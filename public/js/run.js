@@ -146,7 +146,8 @@ var SETTINGS;
     
     INSTAGRAM_LOGIN = SETTINGS["selectors"]["INSTAGRAM_LOGIN"];
     INSTAGRAM_BASE = SETTINGS["selectors"]["INSTAGRAM_BASE"];
-
+    
+    ACCEPT_COOCKIES = SETTINGS["selectors"]["ACCEPT_COOCKIES"];
     USERNAME_INPUT = SETTINGS["selectors"]["USERNAME_INPUT"];
     LOGIN_BUTTON = SETTINGS["selectors"]["LOGIN_BUTTON"];
     ERROR_PAGE = SETTINGS["selectors"]["ERROR_PAGE"];
@@ -262,6 +263,7 @@ var WHITELIST,
     INSTAGRAM_BASE,
 
     // SELECTORS
+    ACCEPT_COOCKIES,
     USERNAME_INPUT,
     LOGIN_BUTTON,
     ERROR_PAGE,
@@ -822,7 +824,11 @@ class instabot {
         this.add_log("info", "Doing Browser login");
         if(!this.is_open()) return;
         await this.account_window.webContents.executeJavaScript(`
+            let accept_coockies = document.querySelector('${ACCEPT_COOCKIES}');
+            if(accept_coockies) accept_coockies.click()
 
+        `);
+        await this.account_window.webContents.executeJavaScript(`
 			async function demo() {
 				while (!document.querySelector("${USERNAME_INPUT}")){
 					await sleep(1000);
@@ -2107,7 +2113,11 @@ class instabot {
             ((this.leftComment && this.STATS[this.day]['likes'] > this.max_likes ) || !this.leftComment) &&
             ((this.unfollow && this.STATS[this.day]['unfollow'] > this.max_unfollow) || !this.unfollow) &&
             (((this.followNoPost || this.followPrivate || this.followPublic) && this.STATS[this.day]['follow'] > this.max_follow) || !(this.followNoPost || this.followPrivate || this.followPublic)) 
-        )  interact = false;
+        ) {
+            interact = false;
+            this.add_log('warning', `All interactions have reached the limits, I'll keep posting medias ( if enabled )`);
+            show_popup(this.profile_name, 'interactions limit', this.avatar, "reached tha maximum actions for the day, i'll continue to post medias ( if enabled ) ");
+        }
         
         // Check if actions blocked
         await this.check_actions_blocked();
@@ -2125,15 +2135,11 @@ class instabot {
         } catch (e) {
             this.add_log('error', `Error uploading story: ${e}`);
         }
+
         try {
             await this.collect_images_inFlow().catch(e => this.add_log('error', `Error collecting images: ${e}`))
         } catch (e) {
             this.add_log('error', `Error collecting images: ${e}`);
-        }
-
-        if (!interact) {
-            this.add_log('warning', `All interactions have reached the limits, I'll keep posting medias ( if enabled )`);
-            show_popup(this.profile_name, 'interactions limit', this.avatar, "reached tha maximum actions for the day, i'll continue to post medias ( if enabled ) ");
         }
 
         // Picking new user
