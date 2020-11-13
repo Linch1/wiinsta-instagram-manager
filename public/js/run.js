@@ -143,7 +143,7 @@ var SETTINGS;
     Load selectors from external url
     */
     SETTINGS = JSON.parse(SETTINGS);
-    
+    console.log(SETTINGS)
     INSTAGRAM_LOGIN = SETTINGS["selectors"]["INSTAGRAM_LOGIN"];
     INSTAGRAM_BASE = SETTINGS["selectors"]["INSTAGRAM_BASE"];
     
@@ -824,22 +824,25 @@ class instabot {
         this.add_log("info", "Doing Browser login");
         if(!this.is_open()) return;
         await this.account_window.webContents.executeJavaScript(`
-            let accept_coockies = document.querySelector('${ACCEPT_COOCKIES}');
-            if(accept_coockies) accept_coockies.click()
 
-        `);
-        await this.account_window.webContents.executeJavaScript(`
+            function accept_cookies(){
+                let accept_coockies = document.querySelector('${ACCEPT_COOCKIES}');
+                if(accept_coockies) accept_coockies.click()
+            }
+
 			async function demo() {
 				while (!document.querySelector("${USERNAME_INPUT}")){
 					await sleep(1000);
 					if (window.location){
 						if (!window.location.href.includes('login')){
+                            accept_cookies();
 							return;
 						}
 
 					}
 					
 				}
+                accept_cookies();
 				const setValue = Object.getOwnPropertyDescriptor(
 					window.HTMLInputElement.prototype,
 					"value"
