@@ -16,6 +16,7 @@
 ## 📎 Menu
 - 💡 [Features](#-features)
 - 💾 Installation:
+	- [Repo Setup](#repo-setup)
 	- 👨‍💻 [Desktop App](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Installation.md) (Windows, Linux, Mac)
 - :balloon: [Getting started](#balloon-getting-started)
 - 📝 [Documentation](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Documentation.md)
@@ -65,6 +66,14 @@
 3. Follow the [Installation Guide](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Installation.md) (Windows, Linux, Mac) and if it works add a star 🌟 at this project ❤️
 5. Join the [Discord community](https://discord.gg/sp34Aav) for add the accounts to the whitelist
 4. If you want to help me: **donate on [paypal](https://paypal.me/linch1)/[ko-fi](https://ko-fi.com/linch1)**
+
+
+## Repo setup
+1. Download the repository
+2. Download [Node.js](https://nodejs.org/it/download/)
+3. open the terminal and cd into the downloaded repo ( `cd /path/to/wiinsta-instagram-manager`)
+4. install the packages ( `npm install`)
+5. Run the app ( `npm start` )
 
 ## :balloon: GETTING STARTED
 
