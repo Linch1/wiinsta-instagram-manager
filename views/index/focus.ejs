@@ -1,27 +1,30 @@
-
-<div class="stats page">
+<div class="page focus">
 
   <div class="top-container">
+    <%include ../partials/focus_actions.ejs%>
     <div class="row">
       <header class="page-header">
-        <div class="page-icon contain-image stats-icon"></div>
-        <h1 class="page-title">Stats</h1>
+        <div class="page-icon contain-image focus-icon"></div>
+        <h1 class="page-title">Focus</h1>
       </header>
-  
       <div class="column medium-2">
-        <a class="help-link" href="#" data-reveal-id="statsModal">Click for help <div class="icon contain-image help-icon"></div></a>
-        <div id="statsModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-          <div class="getting-started-guide stats-guide">
+
+
+        <a class="help-link" href="#" data-reveal-id="focusModal">Click for help <div class="icon contain-image help-icon"></div></a>
+        <div id="focusModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+          <div class="getting-started-guide focus-guide">
             <%include ../partials/start_guide_image.ejs%>
-            <div class="guide-image" style="background-image: url('../../public/img/getting-started/stats/stats1.jpg')"></div>
-            <div class="guide-image" style="background-image: url('../../public/img/getting-started/stats/stats2.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/focus/focus.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/images/images1.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/images/images2.jpg')"></div>
+            <div class="guide-image" style="background-image: url('../../public/img/getting-started/images/images3.jpg')"></div>
           </div>
         </div>
 
         <script type="text/javascript">
           $(document).ready(function(){
             //Slick Slider - Home Slider
-            $('.stats-guide').slick({
+            $('.focus-guide').slick({
               slidesToShow: 1,
               slidesToScroll: 1,
               // autoplay: true,
@@ -57,18 +60,17 @@
         </div>
 
       </div>
+
     </div>
+
 
   </div>
 
+
+
   <div class="row">
-    <div class="stats-container" style="margin-top: 2rem;">
-
-      <div class="summary-stats">
-
-        <ul class="bxslider">  </ul>
-
-      </div>
+    <div class="form">
+    
 
     </div>
   </div>

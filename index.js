@@ -16,6 +16,18 @@ if (setupEvents.handleSquirrelEvent()) {
     return;
  }
 
+/*
+
+types:
+
+block ( start a new section )
+t ( text field )
+c ( checkbox )
+nr ( no render in the gui )
+n ( number )
+at ( array text, each word have to be separated by the & char)
+di ( dictionary )
+*/
 datas = {
   "LOGIN DATAS": 
   {
@@ -303,7 +315,31 @@ datas = {
     {
       "type": "nr",
       "description": "random story param "
+    },
+  "FOCUS COMMENTS": 
+    {
+        "type": "block",
+        "description": "the post link on wich you want to left the comments"
+    },
+  "focus_post":
+    {
+      "type": "t",
+      "description": "the link of the post under what you want to left the comments"
+    },
+  "focus_comment":
+    {
+      "type": "at",
+      "description": "the comments that you want to left ( write each comment separate by '&' char )"
+    },
+  "focus_delay": {
+      "type": "n",
+      "description": "ammount of time to wait before on comment and another"
+    },
+  "focus_in_flow": {
+      "type": "c",
+      "description": "check if you want the bot to do the focus action while he is interacting with other users ( in this case the 'focus delay' will be overwritten by the 'delay' in the interactions section ) "
     }
+   
 }
 
 let win;

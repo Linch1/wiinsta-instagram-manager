@@ -92,11 +92,14 @@ async function start(){
 		console.log("sending edits")
 		if(!is_valid_profile()) return;
 		send_inputs();
+		console.log("sent")
 		let currentProfile = getCurrentUser();
+		let avatarPath = getCurrentUserAvatarPath();
 		let bot = getCurrentBot();
+		show_popup(currentProfile, 'success', avatarPath, "new settings saved");
 		if( bot ) bot.reloadSettings();
 		reset();
-		show_popup_choice(getCurrentUser(), 'success', getCurrentUserAvatarPath(), "new settings saved");
+		
 	});
 
 	/*

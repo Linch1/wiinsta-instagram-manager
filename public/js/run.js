@@ -93,6 +93,7 @@ const FORM_FILTERS = {
     "images": ["IMAGES COLLECTOR"],
     "posts": ["AUTO POST"],
     "stories": ["AUTO STORY"],
+    "focus": ["FOCUS COMMENTS"],
     // the pages below have not a form inside
     "stats": null, 
     "logs": null,
@@ -569,6 +570,12 @@ class instabot {
         this.randomStoryDelay = this.PROFILE['random_story_delay'] * 60 * 1000; // come input vuole minuti
         this.randomStoryLastTime = this.PROFILE['random_story_last_time'];
         this.scheduledStories = this.PROFILE['scheduled_stories'];
+
+        this.focusPost = this.PROFILE['focus_post'];
+        this.focusComments = this.PROFILE['focus_comment'];
+        this.focusDelay = this.PROFILE['focus_delay'];
+        this.focusInFlow = this.PROFILE['focus_in_flow'];
+
         this.avatar = getAvatarPath(this.PROFILE['profile_avatar']);
         this.process_count = 0;
         this.followed_count = 0;
@@ -636,6 +643,12 @@ class instabot {
         this.randomStoryDelay = this.PROFILE['random_story_delay'] * 60 * 1000; // come input vuole minuti
         this.randomStoryLastTime = this.PROFILE['random_story_last_time'];
         this.scheduledStories = this.PROFILE['scheduled_stories'];
+
+        this.focusPost = this.PROFILE['focus_post'];
+        this.focusComments = this.PROFILE['focus_comment'];
+        this.focusDelay = this.PROFILE['focus_delay'];
+        this.focusInFlow = this.PROFILE['focus_in_flow'];
+
     }
 
     /*
@@ -703,7 +716,6 @@ class instabot {
             if (fakeExists(this.SESSION)) {
                 console.log("loading session")
                 try {
-                    console.log("1")
                     let session_datas = fakeLoad(this.SESSION);
                     if (Object.keys(session).length == 0) {
                         throw new Error('Empty session');
@@ -819,7 +831,7 @@ class instabot {
             this.account_window = createWindow(this.sessionId, this.profile_name);
         }
 
-        await this.ig_api_login();
+        //await this.ig_api_login();
         await this.define_sleep();
         this.add_log("info", "Doing Browser login");
         if(!this.is_open()) return;
@@ -973,6 +985,30 @@ class instabot {
 		list_posts();
 	`);
     }
+
+    /*
+    @info: runs the focus comment action, it will go to the given post and left the given comments each given delay.
+    */
+    async focus(){
+        this.add_log("info", `Starting Focus on post: ${this.focusPost}`);
+        await this.check_actions_blocked();
+        await this.focus_action();
+        this.add_log("info", `Focus is ended`);
+    }
+
+    async focus_action(){
+        await this.focus_comment_action();
+        await sleep(this.focusDelay * 1000);
+        if (this.is_open()) this.focus_action()
+    }
+
+    async focus_comment_action() {
+        if (this.blocked_actions) return;
+        await this.account_window.loadURL(this.focusPost);
+        await this.comment_action_logic(this.focusComments, 1, true);
+        this.add_log("info", `Left Focus comment`);
+    }
+
     /*
     @info: left the likes to the profile page based on the settings
     */
@@ -1024,63 +1060,90 @@ class instabot {
             
             if (this.blocked_actions) return;
             
-            let comments_to_left = (this.leftComment) ? ((this.random_actions === true) ? randomRange(0, this.numberOfComments) : this.numberOfComments) : 0;
+            let comments_to_left = (this.leftComment) ? ((this.random_actions === true) ? randomRange(0, this.numberOfComments) : parseInt(this.numberOfComments)) : 0;
             
             if (comments_to_left == 0 || this.STATS[this.day]['comments'] > this.max_comments) {
                 this.add_log('info', `Not lefting comments`);
                 return;
             }
             this.add_log("info", `Lefting ${comments_to_left} comments`);
-            let randomnum = randomRange(0, this.commentText.length - 1);
-            let comments = this.commentText;
 
-            // console.log(comments, " index: ", randomnum, "comment: ", comments[randomnum])
-            await this.account_window.webContents.executeJavaScript(`
-				// posts vengono definiti in this.check_user_type quindi non c'è bisogno di redifinirli
-				const set_comment = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
-
-				const write_comment = (selector, value) => {
-					const textarea = document.querySelector(selector);
-					set_comment.call(textarea, value);
-					textarea.dispatchEvent(new Event('input', { bubbles: true}));
-				}
-
-				async function send_comments() {
-					comment_buttons = document.querySelectorAll("${COMMENT_BUTTON}");
-
-					for (let i=0; i<comment_buttons.length; i++){
-						let comment_button = comment_buttons[i];
-						comment_button.click();
-						await sleep(2000);
-						let click_comment = i + 1 <= ${comments_to_left};
-						let comment_input = document.querySelector("${COMMENT_TEXTAREA}");
-
-					 	if (!click_comment){
-							break;
-						}
-
-						if(comment_input && ${this.leftComment} === true){
-							if (click_comment){
-								write_comment('${COMMENT_TEXTAREA}', '${this.commentText[randomRange(0, this.commentText.length - 1)]}');
-								await sleep(1000);
-								let submit_comment = document.querySelector("${SUBMIT_COMMENT}");
-								submit_comment.click();
-								await sleep(1000);
-							}
-						}
-
-						let back_arrow = document.querySelector('a[href="/${this.current_user}/feed/"]');
-						back_arrow.click();
-
-					}
-				}
-
-				send_comments()
-			`);
+            await this.comment_action_logic(this.commentText, comments_to_left, this.leftComment)
 
             this.STATS[this.day]['comments'] = parseInt(this.STATS[this.day]['comments']) + parseInt(comments_to_left);
  
     }
+    /*
+    @info: the logic for left a comment
+    @comment: the comments to left ( array of strings )
+    @comments_to_left: number of comments ( int )
+    @leftComment: if it has to left comment or not
+    */
+    async comment_action_logic(comments, comments_to_left, leftComment){
+
+        console.log(comments, comments_to_left, leftComment)
+        if(!leftComment) return;
+        if (!comments_to_left) comments_to_left = 1
+        await this.define_sleep();
+        await this.account_window.webContents.executeJavaScript(`
+            // posts vengono definiti in this.check_user_type quindi non c'è bisogno di redifinirli
+            const set_comment = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+
+            const write_comment = (selector, value) => {
+                const textarea = document.querySelector(selector);
+                set_comment.call(textarea, value);
+                textarea.dispatchEvent(new Event('input', { bubbles: true}));
+            }
+            function randomRange(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min; //Il max è incluso e il min è incluso 
+            }
+
+            async function send_comments() {
+                let comments = ${JSON.stringify(comments)};
+                let comment_buttons = document.querySelectorAll("${COMMENT_BUTTON}");
+                for (let i=0; i<comment_buttons.length; i++){
+
+                    let click_comment = i + 1 <= ${comments_to_left};
+                    if (!click_comment){
+                        await sleep(60000);
+                        break;
+                    }
+        
+                    comment_buttons = document.querySelectorAll("${COMMENT_BUTTON}");
+                    let comment_button = comment_buttons[i];
+                    comment_button.click();
+                    await sleep(2000);
+                    let comment_input = document.querySelector("${COMMENT_TEXTAREA}");
+                    
+                    if(comment_input){
+                        if (click_comment){
+                            
+                            console.log(comments)
+                            let comment = comments[randomRange(0, comments.length - 1)];
+                            write_comment('${COMMENT_TEXTAREA}', comment);
+                            await sleep(1000);
+                            let submit_comment = document.querySelector("${SUBMIT_COMMENT}");
+                            submit_comment.click();
+                            console.log('submitted comment')
+                            await sleep(2000);
+                        }
+                    }
+                    let back_arrow = document.querySelector('a[href="/${this.current_user}/feed/"]');
+         
+                    if(back_arrow) {
+                        back_arrow.click();
+                    }
+                    await sleep(3000);
+                    
+                }
+            }
+
+            send_comments();
+            
+        `);
+    } 
     /*
     @info: check if the user has the actions blocked, if yes the profile is blocked for 6hrs
     */
@@ -1093,7 +1156,6 @@ class instabot {
                     this.blocked_actions = false;
                     this.PROFILE['blocked_actions_time'] = this.blocked_actions_time = 0;
                     write_file(this.PROFILE_FL, JSON.stringify(this.PROFILE));
-                  
                     return;
                 }
               
@@ -2140,6 +2202,12 @@ class instabot {
         }
 
         try {
+            if(this.focusInFlow) await this.focus_comment_action();
+        } catch(e) {
+            this.add_log('error', `Error doing the focus comments action on the given post: ${e}`);
+        }
+
+        try {
             await this.collect_images_inFlow().catch(e => this.add_log('error', `Error collecting images: ${e}`))
         } catch (e) {
             this.add_log('error', `Error collecting images: ${e}`);
@@ -2226,7 +2294,6 @@ class instabot {
 
             if (this.random_time === true) time_to_sleep = randomRange(Math.round(this.delay / 2), this.delay * 2);
             else time_to_sleep = this.delay;
-
             this.add_log('warning', `SLEEPING: ${time_to_sleep} seconds`);
             await sleep(time_to_sleep * 1000);
         }

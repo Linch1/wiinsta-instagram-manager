@@ -1,13 +1,16 @@
 <div class="page posts">
 
-  <header class="page-header">
-    <div class="page-icon contain-image posts-icon"></div>
-    <h1 class="page-title">Posts</h1>
-  </header>
+  
 
   <div class="top-container">
     <%include ../partials/posts_actions.ejs%>
     <div class="row">
+
+      <header class="page-header">
+        <div class="page-icon contain-image posts-icon"></div>
+        <h1 class="page-title">Posts</h1>
+      </header>
+      
       <div class="column medium-2">
 
 
@@ -132,93 +135,7 @@
 
   <div class="row">
     <div class="form">
-    <% let write;%>
-    <%  for ([key, value] of Object.entries(datas)) {   %>
-      <% key_upper = key.split("_").join(" ").toUpperCase() %>
-      <%let col_val = 'medium-6 column end';%>
-      
-        <% if (value.type == 'nr') continue %>
-
-        <% if (value.type == 'di') { %>
-          <div id="<%=value.container_id%>"> 
-          </div>
-        <% } %>
-        
-        <% if (value.type == 'block') { %>
-          <% if (key_upper.trim() == 'AUTO POST'.trim()) { -%>
-            <% write = true; %>
-            <div class="field medium-12 column"> 
-              <div class="title">
-                <h3>
-                  <%=key_upper%>
-                </h3> 
-              </div>
-            </div>  
-          <% } else {-%>
-              <% write = null; %>
-          <% } %>
-        <% } %>
-        <% if(!write) continue; %>
-        <% if (value.type == 't') { %>
-        <div class="field <%=col_val%>" >
-          <label for="img_<%=key%>">
-            <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
-              <%=key_upper%>
-              <i class="far fa-question-circle"></i>
-            </span>
-          </label>
-          <input type="text" id="img_<%=key%>" data-input="<%=key%>">
-        </div>
-        <% } %>
-        
-        <% if (value.type == 'at') { %>
-        <div class="field <%=col_val%>" >
-          <label for="img_<%=key%>">
-            <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
-              <%=key_upper%>
-              <i class="far fa-question-circle"></i>
-            </span>
-          </label>
-          <% if (value.render && value.render == "textarea") { -%>
-            <textarea id="prof_<%=key%>" data-input="<%=key%>" rows="5"></textarea>
-          <% } else { -%>
-            <input type="text" id="prof_<%=key%>" data-input="<%=key%>">
-          <% } -%>
-        </div>
-        <% } %>
-        
-        <% if (value.type == 'n') { %>
-        <div class="field <%=col_val%>">
-          <label for="img_<%=key%>">
-            <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
-              <%=key_upper%>
-              <i class="far fa-question-circle"></i>
-            </span>
-          </label>
-          <input type="number" id="img_<%=key%>" data-input="<%=key%>">
-        </div>
-        <% } %>
-        
-        <% if (value.type == 'c') { %>
-        <div class="field check <%=col_val%>">
-         
-            <label for="img_<%=key%>">
-
-              <span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= value.description %>">
-                <%=key_upper%>
-                <i class="far fa-question-circle"></i>
-              </span>
-
-              <div class="switch round">
-                <input id="img_<%=key%>" type="checkbox" data-input="<%=key%>">
-                <label for="img_<%=key%>"></label>
-              </div> 
-
-            </label>
-         
-        </div>
-        <% } %>
-    <% } %>
+    
     </div>
   </div>
 

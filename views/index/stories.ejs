@@ -1,14 +1,15 @@
 
 <div class="page stories">
 
-  <header class="page-header">
-    <div class="page-icon contain-image stories-icon"></div>
-    <h1 class="page-title">Stories</h1>
-  </header>
-
   <div class="top-container">
     <%include ../partials/stories_actions.ejs%>
     <div class="row">
+
+      <header class="page-header">
+        <div class="page-icon contain-image stories-icon"></div>
+        <h1 class="page-title">Stories</h1>
+      </header>
+  
       <div class="column medium-2">
         <a class="help-link" href="#" data-reveal-id="storiesModal">Click for help <div class="icon contain-image help-icon"></div></a>
         <div id="storiesModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">

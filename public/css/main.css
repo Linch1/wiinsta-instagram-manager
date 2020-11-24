@@ -12,5 +12,21 @@
 @import url("common/form.css");
 @import url("common/settings.css");
 
+@import url("inputs.css");
+@import url("posts.css");
+@import url("logs.css");
+@import url("header.css");
+@import url("dashboardCard.css");
+@import url("dashboard.css");
+@import url("checkbox.css");
+@import url("menu.css");
+@import url("alert.css");
+@import url("images.css");
+@import url("profiles.css");
+@import url("radio-buttons.css");
+@import url("actions.css");
+
 /* ASIDE */
-@import url("navbar/navbar.css");
+@import url("navbar.css");
+
+
