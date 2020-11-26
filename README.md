@@ -59,6 +59,7 @@
 * [✔️] Scheduled posts/stories
 * [✔️] Media collector
 * [✔️] Bot Usage and I.g Profile Stats
+* [✔️] Bulk comments under a specific post
 
 ## 👨‍💻 Desktop setup (GUI)
 1. Download [Wiinsta](https://github.com/Linch1/wiinsta-instagram-manager/blob/master/Installation.md) GUI.
