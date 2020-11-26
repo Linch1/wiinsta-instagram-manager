@@ -17,9 +17,9 @@ Logic
 
 // - aggiungere un pulsante per nascondere tutte le notifiche
 
+// - inserire le variabili prese da SETTINGS in un object invece che usare le variabili
 
 // * SOLVED *
-
 
 
 */
@@ -255,12 +255,7 @@ var SETTINGS;
 
 })();
 
-// (async () => {
-// 	WHITELIST = await rp('https://raw.githubusercontent.com/linch1-test/wiinsta_check/master/whitelist.json');
-// 	WHITELIST = JSON.parse(WHITELIST);
-// })();
-var WHITELIST,
-    INSTAGRAM_LOGIN,
+var INSTAGRAM_LOGIN,
     INSTAGRAM_BASE,
 
     // SELECTORS

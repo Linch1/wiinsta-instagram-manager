@@ -27,19 +27,28 @@
 #contents .container .controls .icons{
 	font-size: 20px;
 }
-#contents .container .controls .icons i{
+#contents .container .controls .icons div{
 	cursor: pointer;
 	padding: 0px;
 	border-radius: 5px;
 	transition: all 0.3s ease;
+	display: inline-block;
 }
+
+#contents .container .controls .icons .delete-image:hover,
+#contents .container .controls .icons .restore-image:hover{
+	background-size: 80%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 #contents .container .controls .icons .delete-image:hover{
 	padding: 10px;
-	background: rgba(255, 0, 0, 0.5);
+	background-color: rgba(255, 0, 0, 0.5);
 }
 #contents .container .controls .icons .restore-image:hover{
 	padding: 10px;
-	background: rgba(0, 0, 255, 0.5);
+	background-color: rgba(0, 0, 255, 0.5);
 }
 
 #contents .container .content{

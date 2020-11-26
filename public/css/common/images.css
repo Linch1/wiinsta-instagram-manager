@@ -25,19 +25,23 @@
 	background-repeat: no-repeat;
 }
 
-
-
 .spaceship-icon{
 	background-image: url('../../img/spaceship.png');
 }
 .spaceship-img-icon{
 	background-image: url('../../img/spaceship-img.png');
 }
+.spaceship-focus-icon{
+	background-image: url('../../img/spaceship-focus.png');
+}
 .asteroid-icon{
 	background-image: url('../../img/asteroid.png');
 }
 .asteroid-img-icon{
 	background-image: url('../../img/asteroid-img.png');
+}
+.asteroid-focus-icon{
+	background-image: url('../../img/asteroid-focus.png');
 }
 .switch-icon{
 	background-image: url('../../img/switch.png');
@@ -81,6 +85,9 @@
 .run-all-img-icon{
 	background-image: url('../../img/run-all-img.png');
 }
+.run-all-focus-icon{
+	background-image: url('../../img/run-all-focus.png');
+}
 .clear-text-icon{
 	background-image: url('../../img/clear-text.png');
 }
@@ -89,6 +96,9 @@
 }
 .stop-all-img-icon{
 	background-image: url('../../img/stop-all-img.png');
+}
+.stop-all-focus-icon{
+	background-image: url('../../img/stop-all-focus.png');
 }
 .api-login-icon{
 	background-image: url('../../img/api-login.png');
@@ -128,4 +138,10 @@
 }
 .focus-icon{
 	background-image: url('../../img/focus.png');
+}
+.restore-icon{
+	background-image: url('../../img/restore.png');
+}
+.cross-icon{
+	background-image: url('../../img/cross.png');
 }

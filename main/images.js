@@ -274,8 +274,8 @@ function populate_images(type, settings){
 				<div class="controls">
 					<div class="hashtag"> ${hashtag} </div>
 					<div class="icons">
-						<i class="delete-image fas fa-trash" ${localFile ? 'data-local' : ''} data-hashtag="${hashtag}" data-type="image" data-url="${localFile ? link : code}"></i>
-						<i class="restore-image fas fa-sync-alt" data-code="${code}" data-hashtag="${hashtag}" data-type="image" data-url="${link}"></i>
+						<div class="delete-image cover-image icon delete-icon" ${localFile ? 'data-local' : ''} data-hashtag="${hashtag}" data-type="image" data-url="${localFile ? link : code}"></div>
+						<div class="restore-image cover-image icon restore-icon" data-code="${code}" data-hashtag="${hashtag}" data-type="image" data-url="${link}"></div>
 					</div>
 			${bottom}				
 		`);
@@ -303,8 +303,8 @@ function populate_images(type, settings){
 				<div class="controls">
 					<div class="hashtag"> ${hashtag} </div>
 					<div class="icons">
-						<i class="delete-image fas fa-trash" ${localFile ? 'data-local' : ''} data-hashtag="${hashtag}" data-type="video" data-url="${link}"></i>
-						<i class="restore-image fas fa-sync-alt" data-code="${code}" data-hashtag="${hashtag}" data-type="video" data-url="${link}"></i>
+						<div class="delete-image cover-image icon delete-icon" ${localFile ? 'data-local' : ''} data-hashtag="${hashtag}" data-type="video" data-url="${link}"></div>
+						<div class="restore-image cover-image icon restore-icon" data-code="${code}" data-hashtag="${hashtag}" data-type="video" data-url="${link}"></div>
 					</div>
 			${bottom}
 			
