@@ -25,7 +25,7 @@
 ![](https://img.shields.io/badge/bitcoin-1EyJ7niABw5L4LWvLj8M6bQCENjX8QCmNa-E38B29.svg) 
 ![](https://img.shields.io/badge/ethereum-0x8af8e8f4950db92ddb76597bafc1d35f97a914b1-4E8EE9.svg)
 
-
+##### Currently not working due wrong instagram selector, only follow and unfowllow works
 
 ## 🎁 Support: Donate
 > This project is **free**, and I try to provide excellent **free support**. Why donate? I work on this project several hours a week or in my spare time and try to keep it up to date and working. This cannot be done without your financial support, even small. There are professional bots that saves passwords on the cloud for €14/month: we want to protect your passwords and offer you a better product than others storing all the datas locally on your machine. A lower donation would allow continuous development, ever better quality and the realization of this dream. **THANK YOU!**
